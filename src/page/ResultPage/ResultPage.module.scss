@@ -1,0 +1,54 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  //grid-template-rows: auto 1fr auto;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+
+  background-image:url('../../assets/image/bg-result.png');
+  background-repeat:no-repeat;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -o-background-size:cover;
+  background-size:cover;
+  background-position:center;
+  z-index: -2;
+}
+
+.face {
+  width: 13em;
+}
+
+.footer {
+  display: flex;
+  gap: 10px;
+}
+
+.time {
+  color: #f6e948;
+  rotate: -10deg;
+  font-size: 0.6em;
+  span {
+    font-size: 1.8em;
+  }
+}
+
+.logo {
+  width: 5em;
+}
+
+.title {
+  font-size: 1.5em;
+  color: #f6e948;
+}
+
+.subTitle {
+  font-size: 1.1em;
+  color: #ffffff;
+}
