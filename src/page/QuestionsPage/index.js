@@ -9,9 +9,9 @@ const QuestionsPage = () => {
   return (
     <div className={styles.root}>
       <h1 className={styles.title}>КАКОЙ ТАЛАНТ У ЭТОГО РЕБЕНКА?</h1>
-      <img className={styles.children} src={children} alt={""} />
-
       <div>
+        <img className={styles.children} src={children} alt={""} />
+
         <QuestionButton
           letter={"А"}
           answer={"ИГРАЕТ НА ГИТАРЕ"}
@@ -28,14 +28,17 @@ const QuestionsPage = () => {
           type={"yellow"}
         />
       </div>
-      <Button title={"ОТПРАВИТЬ ОТВЕТ"} />
-      <div className={styles.footer}>
-        <img className={styles.logo} src={logo} alt={""} />
-        <h1 className={styles.time}>
-          ВТОРНИК
-          <br />
-          <span>19:00</span>
-        </h1>
+
+      <div className={styles.footerContainer}>
+        <Button title={"ОТПРАВИТЬ ОТВЕТ"} />
+        <div className={styles.footer}>
+          <img className={styles.logo} src={logo} alt={""} />
+          <h1 className={styles.time}>
+            ВТОРНИК
+            <br />
+            <span>19:00</span>
+          </h1>
+        </div>
       </div>
     </div>
   );
