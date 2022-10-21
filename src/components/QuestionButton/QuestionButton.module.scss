@@ -1,0 +1,113 @@
+.button{
+  position: relative;
+  display:block;
+  background: transparent;
+  width:200px;
+  height:60px;
+  text-align:center;
+  font-size: 12px;
+  text-decoration:none;
+  color:#fff;
+  margin: 10px 0;
+}
+
+.text {
+  position: absolute;
+  translate: -50% -50%;
+  top: 50%;
+}
+
+.arc {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  translate: -50% -50%;
+  top: 50%;
+  left: -1%;
+  z-index: 2;
+
+  &.yellow {
+    background: #f6e948;
+    color: #e60086;
+  }
+
+  &.violet {
+    background: #e60086;
+    color: #f6e948;
+  }
+}
+
+.line {
+  position: absolute;
+  display: block;
+  height: 3px;
+  width: 100vw;
+  border: 0;
+  //border-bottom: 3px solid #e60086;
+  padding: 0;
+  translate: 0 50%;
+  left: 106.5%;
+  bottom: 50%;
+  top: 35%;
+  z-index: -5;
+
+  &.yellow {
+    background: #f6e948;
+  }
+
+  &.violet {
+    background: #e60086;
+  }
+}
+
+.button:before, .button:after {
+  width:200px;
+  left: 0;
+  height:27px;
+  z-index: 1;
+}
+
+.violet{ color: #ffffff; }
+
+.violet:before,.violet:after {
+  border: 3px solid #e60086;
+}
+
+.yellow:before,.yellow:after {
+  border: 3px solid #f6e948;
+}
+
+
+.button:before{
+  position: absolute;
+  content: '';
+  border-bottom: none;
+  -webkit-transform: perspective(15px) rotateX(5deg);
+  -moz-transform: perspective(15px) rotateX(5deg);
+  transform: perspective(15px) rotateX(5deg);
+}
+.button:after{
+  position: absolute;
+  top: 32px;
+  content: '';
+  border-top: none;
+  -webkit-transform: perspective(15px) rotateX(-5deg);
+  -moz-transform: perspective(15px) rotateX(-5deg);
+  transform: perspective(15px) rotateX(-5deg);
+}
+
+.violet:hover:before, .violet:hover:after {
+  background: #e60086;
+}
+
+.yellow:hover:before, .yellow:hover:after {
+  background: #f6e948;
+}
+
+.button:hover{
+  color:#fff;
+}

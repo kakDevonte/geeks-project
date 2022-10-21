@@ -1,0 +1,27 @@
+.root {
+ border: 1px solid red;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ text-align: center;
+}
+
+.notTimeZoneContainer {
+ font-size: 0.7em;
+}
+
+.title {
+ color: #f6e948;
+
+}
+
+.subTittle {
+ color: #ffffff;
+}
+
+.logo {
+  width: 17em;
+}
