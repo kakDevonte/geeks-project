@@ -3,7 +3,23 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
+
+  @media (max-height: 650px) {
+    font-size: 14px;
+  }
+  @media (max-height: 600px) {
+    font-size: 13px;
+  }
+  @media (max-height: 550px) {
+    font-size: 12px;
+  }
+
 }
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --yellow: #f6e948;
+  --violet: #e60086;
 }
