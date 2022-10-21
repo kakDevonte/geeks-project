@@ -42,6 +42,7 @@ const state = [
     ],
   },
 ];
+
 const ResultPage = () => {
   const status = 2;
   return (

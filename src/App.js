@@ -11,9 +11,9 @@ const App = () => {
   return (
     <div className="root">
       <img className="logo" src={logo} alt={""} />
-      {/*<PlugPage />*/}
+      <PlugPage />
       {/*<QuestionsPage />*/}
-      <ResultPage />
+      {/*<ResultPage />*/}
     </div>
   );
 };
