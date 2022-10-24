@@ -5,18 +5,24 @@ body {
   height: 100vh;
 
   @media (max-height: 650px) {
-    font-size: 14px;
-  }
-  @media (max-height: 600px) {
     font-size: 13px;
   }
-  @media (max-height: 550px) {
+  @media (max-height: 600px) {
     font-size: 12px;
+  }
+  @media (max-height: 550px) {
+    font-size: 11px;
   }
 
 }
 * {
   box-sizing: border-box;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 :root {

@@ -5,7 +5,8 @@
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "vk-miniapps-deploy"
+    "deploy": "vk-miniapps-deploy",
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=10888"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -14,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@vkontakte/vk-bridge": "latest",
+    "@vkontakte/vk-tunnel": "^0.1.2",
     "babel-eslint": "^10.1.0",
     "eruda": "^2.4.1",
     "eruda-code": "^2.0.0",
@@ -22,6 +24,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.4.2",
     "sass": "^1.55.0"
   },
   "devDependencies": {

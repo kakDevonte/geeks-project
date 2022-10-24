@@ -1,8 +1,11 @@
 .root {
   background: var(--violet);
   border: none;
-  padding: 0.5em 2em;
-  font-size: 1.1em;
+  padding: 0.8em 2em;
+  font-size: 1em;
   color: #ffffff;
   border-radius: 25px;
+  width: 100%;
+  white-space: nowrap;
+  cursor: pointer;
 }

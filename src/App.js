@@ -6,14 +6,19 @@ import "./App.scss";
 import { PlugPage } from "./page/PlugPage";
 import QuestionsPage from "./page/QuestionsPage";
 import ResultPage from "./page/ResultPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
     <div className="root">
       <img className="logo" src={logo} alt={""} />
-      <PlugPage />
-      {/*<QuestionsPage />*/}
-      {/*<ResultPage />*/}
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<PlugPage />} />
+          <Route path={"/r"} element={<ResultPage />} />
+          <Route path={"/q"} element={<QuestionsPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

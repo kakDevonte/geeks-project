@@ -2,9 +2,15 @@ import React from "react";
 import logo from "../../assets/image/main-logo.png";
 import styles from "./PlugPage.module.scss";
 import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export const PlugPage = () => {
   const [isInTimeZone, setIsInTimeZone] = React.useState(false);
+  const navigate = useNavigate();
+
+  const onClickNext = () => {
+    navigate("/q");
+  };
 
   const getTittle = () => {
     let content;
@@ -18,7 +24,7 @@ export const PlugPage = () => {
             Трое самых быстрых <br />
             получат 500 рублей <br />
           </h2>
-          <Button title={"НАЧАТЬ"} />
+          <Button title={"НАЧАТЬ"} onClick={onClickNext} />
         </div>
       );
     } else if (isInTimeZone) {

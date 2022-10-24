@@ -1,21 +1,90 @@
 .button{
   position: relative;
   display:block;
-  background: transparent;
   //background: transparent;
   width:200px;
   height:60px;
   text-align:center;
   font-size: 12px;
-  text-decoration:none;
   color:#fff;
   margin: 10px 0;
+  cursor: pointer;
+
+  &.violet {
+    &::before {
+      border-top: 3px solid var(--violet);
+      border-left: 3px solid var(--violet);
+      border-right: 3px solid var(--violet);
+    }
+  }
+
+  &.active.violet {
+    &::before {
+      border-top: 3px solid var(--yellow);
+      border-left: 3px solid var(--yellow);
+      border-right: 3px solid var(--yellow);
+    }
+  }
+
+  &.yellow {
+    &::before {
+      border-top: 3px solid var(--yellow);
+      border-left: 3px solid var(--yellow);
+      border-right: 3px solid var(--yellow);
+    }
+  }
+
+  &.active.yellow {
+    &::before {
+      border-top: 3px solid var(--violet);
+      border-left: 3px solid var(--violet);
+      border-right: 3px solid var(--violet);
+    }
+  }
+
+  &.violet {
+    &::after {
+      border-bottom: 3px solid var(--violet);
+      border-left: 3px solid var(--violet);
+      border-right: 3px solid var(--violet);
+    }
+  }
+
+  &.active.violet {
+    &::after {
+      border-bottom: 3px solid var(--yellow);
+      border-left: 3px solid var(--yellow);
+      border-right: 3px solid var(--yellow);
+    }
+  }
+
+  &.yellow {
+    &::after {
+      border-bottom: 3px solid var(--yellow);
+      border-left: 3px solid var(--yellow);
+      border-right: 3px solid var(--yellow);
+    }
+  }
+
+  &.active.yellow {
+    &::after {
+      border-bottom: 3px solid var(--violet);
+      border-left: 3px solid var(--violet);
+      border-right: 3px solid var(--violet);
+    }
+  }
+}
+
+.active {
+
 }
 
 .text {
+  cursor: pointer;
   position: absolute;
   translate: -50% -50%;
   top: 50%;
+  z-index: 100;
 }
 
 .arc {
@@ -40,6 +109,14 @@
     background: var(--violet);
     color: var(--yellow);
   }
+  &.active.yellow {
+    background: var(--violet);
+    color: var(--yellow);
+  }
+  &.active.violet {
+    background: var(--yellow);
+    color: var(--violet);
+  }
 }
 
 .line {
@@ -63,9 +140,17 @@
   &.violet {
     background: var(--violet);
   }
+  &.active.yellow {
+    background: var(--violet);
+
+  }
+  &.active.violet {
+    background: var(--yellow);
+  }
 }
 
 .button:before, .button:after {
+  pointer-events: all;
   width:200px;
   left: 0;
   height:27px;
@@ -74,41 +159,26 @@
 
 .violet{ color: #ffffff; }
 
-.violet:before,.violet:after {
-  border: 3px solid var(--violet);
-}
 
-.yellow:before,.yellow:after {
-  border: 3px solid var(--yellow);
-}
 
 
 .button:before{
   position: absolute;
   content: '';
   border-bottom: none;
+
   -webkit-transform: perspective(15px) rotateX(5deg);
   -moz-transform: perspective(15px) rotateX(5deg);
   transform: perspective(15px) rotateX(5deg);
 }
 .button:after{
+  pointer-events: none;
   position: absolute;
   top: 32px;
   content: '';
   border-top: none;
+
   -webkit-transform: perspective(15px) rotateX(-5deg);
   -moz-transform: perspective(15px) rotateX(-5deg);
   transform: perspective(15px) rotateX(-5deg);
-}
-
-.violet:hover:before, .violet:hover:after {
-  background: var(--violet);
-}
-
-.yellow:hover:before, .yellow:hover:after {
-  background: var(--yellow);
-}
-
-.button:hover{
-  color:#fff;
 }

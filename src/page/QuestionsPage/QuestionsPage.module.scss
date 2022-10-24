@@ -17,7 +17,7 @@
   -o-background-size:cover;
   background-size:cover;
   background-position:center;
-  z-index: -2;
+  z-index: 100;
 }
 
 .footerContainer {
@@ -27,6 +27,7 @@
 }
 
 .footer {
+  margin-top: 20px;
   display: flex;
   gap: 10px;
 }
@@ -39,7 +40,7 @@
 
 .time {
   color: #f6e948;
-  rotate: -10deg;
+  rotate: -11deg;
   font-size: 0.6em;
   span {
     font-size: 1.8em;
@@ -51,6 +52,35 @@
 }
 
 .children {
-  width: 11em;
+  width: 14em;
+
+  @media (max-height: 750px) {
+    width: 13em;
+  }
+
+  @media (max-height: 700px) {
+    width: 12em;
+  }
+
+  @media (max-height: 690px) {
+    width: 11em;
+  }
+
+  @media (max-height: 670px) {
+    width: 10em;
+  }
+  @media (max-height: 600px) {
+    width: 9em;
+  }
+  @media (max-height: 550px) {
+    width: 8em;
+  }
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}

@@ -18,7 +18,7 @@
   -o-background-size:cover;
   background-size:cover;
   background-position:center;
-  z-index: -2;
+  z-index: 100;
 }
 
 .face {
@@ -51,4 +51,11 @@
 .subTitle {
   font-size: 1.1em;
   color: #ffffff;
+}
+
+.subLogo {
+  position: absolute;
+  width: 5em;
+  margin-left: 10px;
+  //z-index:-1;
 }
