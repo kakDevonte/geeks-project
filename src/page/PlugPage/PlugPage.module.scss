@@ -21,7 +21,7 @@
 
 .title {
  color: #f6e948;
-
+  font-size: 1.8em;
 }
 
 .subTittle {
@@ -32,9 +32,6 @@
   width: 17em;
 }
 
-.subLogo {
-  position: absolute;
-  width: 5em;
-  margin-left: 10px;
-  //z-index:-1;
+.content {
+  padding: 15px;
 }
