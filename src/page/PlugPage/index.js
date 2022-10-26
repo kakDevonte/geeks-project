@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import inTimeSpan from "../../utils/inTimeSpan";
+import data from "../../utils/data.json";
 import logo from "../../assets/image/main-logo.png";
 import styles from "./PlugPage.module.scss";
-import Button from "../../components/Button";
-import { useNavigate } from "react-router-dom";
 
 function getTimeZoneOffset(date, timeZone) {
   let iso = date
@@ -24,23 +26,18 @@ export const PlugPage = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    let date = new Date();
-    date.getDay();
-    if (date.getDay() !== 2) {
+    const now = new Date();
+    now.getDay();
+    if (now.getDay() !== 2) {
       return;
     }
     setIsTuesday(true);
 
-    let currentTime = new Date();
-    let startTime = new Date("2022-10-24T16:33:43"); //6:30am today
-    let endTime = new Date("2022-10-24T17:30:43"); //11:30am today
-
-    if (
-      currentTime.getTime() > startTime.getTime() &&
-      currentTime.getTime() < endTime.getTime()
-    ) {
-      console.log("Я тут");
-      setIsInterval(true);
+    for (let i = 0; i < data.ethers.length; i++) {
+      if (inTimeSpan(data.ethers[i].start, data.ethers[i].end)) {
+        setIsInterval(true);
+        return;
+      }
     }
   }, []);
   // let now = new Date();
@@ -56,7 +53,7 @@ export const PlugPage = () => {
   };
 
   const getTittle = () => {
-    if (!isTuesday) {
+    if (!isInterval) {
       return (
         <div>
           <h1 className={styles.title}>
