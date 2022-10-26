@@ -3,9 +3,17 @@
   border: none;
   padding: 0.8em 2em;
   font-size: 1em;
+  font-family: FridayCondensedBold;
   color: #ffffff;
   border-radius: 25px;
   width: 100%;
   white-space: nowrap;
-  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &:active:hover {
+    cursor: pointer;
+  }
 }

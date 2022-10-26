@@ -26,24 +26,25 @@ const QuestionsPage = () => {
         {isAnswered ? (
           <div className={styles.answer}>
             <QuestionButton letter={answer} answer={answerText} />
-            <h1>
+            <h2 className={styles.subTittle}>
               Правильный ответ
               <br />
               появится
               <br />в эфире Пятницы!
               <br />
               через пару минут
-            </h1>
+            </h2>
           </div>
         ) : (
           <div>
             <QuestionButton
               letter={"А"}
-              answer={data.ethers[0].questions[1].answers[0]}
+              answer={"ОБЛАДАЕТ ВЫДАЮЩИМИСЯ ВОКАЛЬНЫМИ ДАННЫМИ"}
               // type={"yellow"}
               isActive={answer === "A"}
-              onClick={() =>
-                onClickQuest("A", data.ethers[0].questions[1].answers[0])
+              onClick={
+                () =>
+                  onClickQuest("A", "ОБЛАДАЕТ ВЫДАЮЩИМИСЯ ВОКАЛЬНЫМИ ДАННЫМИ") //data.ethers[0].questions[1].answers[0]
               }
             />
             <QuestionButton
@@ -69,6 +70,7 @@ const QuestionsPage = () => {
         {!isAnswered && (
           <div className={styles.button}>
             <Button
+              disabled={answer}
               title={"ОТПРАВИТЬ ОТВЕТ"}
               onClick={() => setIsAnswered(true)}
             />

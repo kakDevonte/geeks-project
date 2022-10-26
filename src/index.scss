@@ -30,3 +30,23 @@ body {
   --yellow: #f6e948;
   --violet: #e60086;
 }
+
+@font-face {
+  font-family: FridayCondensedBold;
+  src: url('./assets/fonts/Friday Condensed Bold.otf');
+}
+
+@font-face {
+  font-family: FridayCondensedRegular;
+  src: url('./assets/fonts/Friday Condensed Regular.otf');
+}
+
+@font-face {
+  font-family: FridayDisplayBold;
+  src: url('./assets/fonts/Friday Display Bold.otf');
+}
+
+@font-face {
+  font-family: FridayDisplayRegular;
+  src: url('./assets/fonts/Friday Display Regular.ttf');
+}

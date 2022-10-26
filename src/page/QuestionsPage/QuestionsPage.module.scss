@@ -21,6 +21,7 @@
 }
 
 .footerContainer {
+  margin-bottom: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,17 +34,26 @@
 }
 
 .title {
+  font-family: FridayCondensedBold;
   margin-top: 10vh;
   font-size: 1.2em;
   color: #f6e948;
+}
+
+.subTittle {
+  font-family: FridayDisplayRegular;
+  font-weight: normal;
+  font-size: 1.1em;
+  color: #ffffff;
 }
 
 .time {
   color: #f6e948;
   rotate: -11deg;
   font-size: 0.6em;
+  font-family: FridayCondensedBold;
   span {
-    font-size: 1.8em;
+    font-size: 1.7em;
   }
 }
 
@@ -53,7 +63,7 @@
 
 .children {
   width: 14em;
-
+  align-self: center;
   @media (max-height: 750px) {
     width: 13em;
   }

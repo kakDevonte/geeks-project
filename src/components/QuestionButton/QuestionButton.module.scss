@@ -3,12 +3,13 @@
   display:block;
   //background: transparent;
   width:200px;
-  height:60px;
+  height:46px;
   text-align:center;
-  font-size: 12px;
+  font-size: 0.8em;
   color:#fff;
   margin: 10px 0;
   cursor: pointer;
+  font-family: FridayDisplayRegular;
 
   &.violet {
     &::before {
@@ -76,14 +77,13 @@
 }
 
 .active {
-
 }
 
 .text {
   position: absolute;
   top: 52%;  /* position the top  edge of the element at the middle of the parent */
   left: 53%; /* position the left edge of the element at the middle of the parent */
-
+  width: 100%;
   transform: translate(-50%, -50%);
 }
 
@@ -128,9 +128,9 @@
   //border-bottom: 3px solid #e60086;
   padding: 0;
   translate: 0 50%;
-  left: 106.5%;
+  left: 104.5%;
   bottom: 50%;
-  top: 35%;
+  top: 31%;
   z-index: -5;
 
   &.yellow {
@@ -150,35 +150,31 @@
 }
 
 .button:before, .button:after {
-  pointer-events: all;
   width:200px;
   left: 0;
-  height:27px;
+  height:20px;
   z-index: 1;
 }
 
 .violet{ color: #ffffff; }
-
-
-
 
 .button:before{
   position: absolute;
   content: '';
   border-bottom: none;
 
-  -webkit-transform: perspective(15px) rotateX(5deg);
-  -moz-transform: perspective(15px) rotateX(5deg);
-  transform: perspective(15px) rotateX(5deg);
+  -webkit-transform: perspective(20px) rotateX(5deg);
+  -moz-transform: perspective(20px) rotateX(5deg);
+  transform: perspective(20px) rotateX(5deg);
 }
 .button:after{
   pointer-events: none;
   position: absolute;
-  top: 32px;
+  top: 24px;
   content: '';
   border-top: none;
 
-  -webkit-transform: perspective(15px) rotateX(-5deg);
-  -moz-transform: perspective(15px) rotateX(-5deg);
-  transform: perspective(15px) rotateX(-5deg);
+  -webkit-transform: perspective(20px) rotateX(-5deg);
+  -moz-transform: perspective(20px) rotateX(-5deg);
+  transform: perspective(20px) rotateX(-5deg);
 }
