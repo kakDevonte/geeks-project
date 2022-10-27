@@ -6,19 +6,10 @@ const instance = axios.create({
 });
 
 export const wheelAPI = {
-  getUser(id) {
-    return instance.get(`users/${id}`);
+  getUser() {
+    return instance.get(`/${id}`);
   },
-  createUser(user) {
-    return instance.post(`users/`, user);
-  },
-  changeBalance(user) {
-    return instance.put(`users/`, user);
-  },
-  getWinners() {
-    return instance.get(`winners/`);
-  },
-  addWinner(winner) {
-    return instance.post(`winners/`, winner);
+  getQuest(date) {
+    return instance.get(`/${date}`);
   },
 };

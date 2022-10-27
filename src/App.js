@@ -7,6 +7,7 @@ import { PlugPage } from "./page/PlugPage";
 import QuestionsPage from "./page/QuestionsPage";
 import ResultPage from "./page/ResultPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import StartPage from "./page/StartPage";
 
 const App = () => {
   return (
@@ -14,9 +15,10 @@ const App = () => {
       <img className="logo" src={logo} alt={""} />
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<PlugPage />} />
-          <Route path={"/r"} element={<ResultPage />} />
-          <Route path={"/q"} element={<QuestionsPage />} />
+          <Route path={"/"} element={<StartPage />} />
+          <Route path={"/plug"} element={<PlugPage />} />
+          <Route path={"/result/:status"} element={<ResultPage />} />
+          <Route path={"/quest"} element={<QuestionsPage />} />
         </Routes>
       </BrowserRouter>
     </div>

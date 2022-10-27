@@ -3,7 +3,8 @@ import styles from "./ResultPage.module.scss";
 import late from "../../assets/image/late-face.png";
 import lose from "../../assets/image/lose-face.png";
 import win from "../../assets/image/win-face.png";
-import logo from "../../assets/image/main-logo.png";
+import logo from "../../assets/image/logo-footer.png";
+import { useNavigate, useParams } from "react-router-dom";
 
 const state = [
   {
@@ -44,13 +45,45 @@ const state = [
 ];
 
 const ResultPage = () => {
-  const status = 2;
+  const [seconds, setSeconds] = React.useState(10);
+  const { status } = useParams();
+  const navigate = useNavigate();
+  let index;
+
+  React.useEffect(() => {
+    if (seconds <= 0) {
+      navigate("/quest");
+    }
+
+    console.log("сикунды = ", seconds);
+    let myInterval = setInterval(() => {
+      setSeconds(seconds - 1);
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
+
+  switch (status) {
+    case "win": {
+      index = 1;
+      break;
+    }
+    case "so-close": {
+      index = 0;
+      break;
+    }
+    case "lose": {
+      index = 2;
+      break;
+    }
+  }
   return (
     <div className={styles.root}>
       <div>
-        <img className={styles.face} src={state[status].image} alt={""} />
-        <h1 className={styles.title}>{state[status].title}</h1>
-        <h2 className={styles.subTitle}>{state[status].subTitle}</h2>
+        <img className={styles.face} src={state[index].image} alt={""} />
+        <h1 className={styles.title}>{state[index].title}</h1>
+        <h2 className={styles.subTitle}>{state[index].subTitle}</h2>
       </div>
       <div className={styles.footer}>
         <img className={styles.logo} src={logo} alt={""} />
