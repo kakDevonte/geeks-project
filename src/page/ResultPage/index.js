@@ -5,40 +5,39 @@ import lose from "../../assets/image/lose-face.png";
 import win from "../../assets/image/win-face.png";
 import logo from "../../assets/image/logo-footer.png";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
+import data from "../../utils/data.json";
 
 const state = [
   {
     image: late,
     title: [
       "КТО-ТО ОТВЕТИЛ БЫЧТРЕЕ",
-      <br />,
+      // <br />,
       "ЧЕМ ТЫ. НО ИНТУИЦИЯ",
-      <br />,
+      // <br />,
       "ТЕБЯ НЕ ПОДВЕЛА",
     ],
     subTitle: [
       "Следующий вопрос",
-      <br />,
+      // <br />,
       "появится тут через",
-      <br />,
+      // <br />,
       "несколько минут",
     ],
   },
   {
     image: win,
-    title: ["ПОЗДРАВЛЯЕМ,", <br />, "500 РУБЛЕЙ ТВОИ!"],
-    subTitle: ["Свяжись с нами,", <br />, "чтобы забрать приз"],
+    title: ["ПОЗДРАВЛЯЕМ,", "500 РУБЛЕЙ ТВОИ!"],
+    subTitle: ["Свяжись с нами,", "чтобы забрать приз"],
   },
   {
     image: lose,
-    title: ["ИЗВИНИ. В ЭТОТ РАЗ", <br />, "ИНТУИЦИЯ", <br />, "ТЕБЯ ПОДВЕЛА."],
+    title: ["ИЗВИНИ. В ЭТОТ РАЗ", "ИНТУИЦИЯ", "ТЕБЯ ПОДВЕЛА."],
     subTitle: [
       "Ничего страшного,",
-      <br />,
       "следующий вопрос",
-      <br />,
       "появится тут через",
-      <br />,
       "несколько минут",
     ],
   },
@@ -46,13 +45,21 @@ const state = [
 
 const ResultPage = () => {
   const [seconds, setSeconds] = React.useState(10);
+  const { incrementQuestNumber } = useGeeksActions();
+  const { questionNumber } = useGeeksState();
   const { status } = useParams();
   const navigate = useNavigate();
   let index;
 
   React.useEffect(() => {
     if (seconds <= 0) {
-      navigate("/quest");
+      console.log(questionNumber);
+      console.log(data.ethers[0].questions.length);
+      incrementQuestNumber(questionNumber + 1);
+      questionNumber >= data.ethers[0].questions.length
+        ? navigate("/plug")
+        : navigate("/quest");
+      // navigate("/quest");
     }
 
     console.log("сикунды = ", seconds);
@@ -82,8 +89,20 @@ const ResultPage = () => {
     <div className={styles.root}>
       <div>
         <img className={styles.face} src={state[index].image} alt={""} />
-        <h1 className={styles.title}>{state[index].title}</h1>
-        <h2 className={styles.subTitle}>{state[index].subTitle}</h2>
+        <div className={styles.content}>
+          {state[index].title.map((item, index) => (
+            <h1 className={styles.title} key={index}>
+              {item}
+            </h1>
+          ))}
+        </div>
+        <div className={styles.content}>
+          {state[index].subTitle.map((item, index) => (
+            <h2 className={styles.subTitle} key={index}>
+              {item}
+            </h2>
+          ))}
+        </div>
       </div>
       <div className={styles.footer}>
         <img className={styles.logo} src={logo} alt={""} />

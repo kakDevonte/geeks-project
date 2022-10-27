@@ -1,10 +1,11 @@
 import React from "react";
 
 const SET_PLUG = "SET_PLUG";
+const INCREMENT_QUEST_NUMBER = "INCREMENT_QUEST_NUMBER";
 
 const initialState = {
   plug: null,
-  questionNumber: null,
+  questionNumber: 0,
   live: {
     id: 0,
     start: "123",
@@ -38,6 +39,12 @@ export const GeeksContextProvider = (props) => {
         payload: type,
       });
     },
+    incrementQuestNumber: (number) => {
+      dispatch({
+        type: INCREMENT_QUEST_NUMBER,
+        payload: number,
+      });
+    },
   };
 
   return (
@@ -51,6 +58,9 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_PLUG: {
       return { ...state, plug: action.payload };
+    }
+    case INCREMENT_QUEST_NUMBER: {
+      return { ...state, questionNumber: action.payload };
     }
   }
 };

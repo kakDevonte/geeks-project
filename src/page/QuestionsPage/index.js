@@ -17,7 +17,7 @@ const secondsInDate = (time) => {
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  const { live } = useGeeksState();
+  const { questionNumber } = useGeeksState();
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [answer, setAnswer] = React.useState(null);
   const [index, setIndex] = React.useState(null);
@@ -42,7 +42,7 @@ const QuestionsPage = () => {
     if (!isMount) return;
     console.log(isAnswered);
     if (seconds <= 0 && isAnswered) {
-      if (index === data.ethers[0].questions[1].correct) {
+      if (index === data.ethers[0].questions[questionNumber].correct) {
         navigate(`/result/win`);
       } else {
         navigate("/result/so-close");
@@ -88,30 +88,42 @@ const QuestionsPage = () => {
           <div>
             <QuestionButton
               letter={"А"}
-              answer={data.ethers[0].questions[1].answers[0]}
+              answer={data.ethers[0].questions[questionNumber].answers[0]}
               // type={"yellow"}
               isActive={answer === "A"}
               onClick={
                 () =>
-                  onClickQuest("A", 1, data.ethers[0].questions[1].answers[0]) //data.ethers[0].questions[1].answers[0]
+                  onClickQuest(
+                    "A",
+                    1,
+                    data.ethers[0].questions[questionNumber].answers[0]
+                  ) //data.ethers[0].questions[1].answers[0]
               }
             />
             <QuestionButton
               letter={"B"}
-              answer={data.ethers[0].questions[1].answers[1]}
+              answer={data.ethers[0].questions[questionNumber].answers[1]}
               // type={"yellow"}
               isActive={answer === "B"}
               onClick={() =>
-                onClickQuest("B", 2, data.ethers[0].questions[1].answers[1])
+                onClickQuest(
+                  "B",
+                  2,
+                  data.ethers[0].questions[questionNumber].answers[1]
+                )
               }
             />
             <QuestionButton
               letter={"C"}
-              answer={data.ethers[0].questions[1].answers[2]}
+              answer={data.ethers[0].questions[questionNumber].answers[2]}
               // type={"yellow"}
               isActive={answer === "C"}
               onClick={() =>
-                onClickQuest("C", 3, data.ethers[0].questions[1].answers[2])
+                onClickQuest(
+                  "C",
+                  3,
+                  data.ethers[0].questions[questionNumber].answers[2]
+                )
               }
             />
           </div>

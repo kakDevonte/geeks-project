@@ -26,14 +26,17 @@
 }
 
 .footer {
+  margin-bottom: 1em;
   display: flex;
   gap: 10px;
 }
 
 .time {
   color: #f6e948;
-  rotate: -10deg;
+  rotate: -12deg;
   font-size: 0.6em;
+  font-family: FridayCondensedBold;
+
   span {
     font-size: 1.8em;
   }
@@ -47,6 +50,7 @@
   font-family: FridayCondensedBold;
   font-size: 1.5em;
   color: #f6e948;
+  margin: 0;
 }
 
 .subTitle {
@@ -54,6 +58,11 @@
   font-weight: normal;
   font-size: 1.1em;
   color: #ffffff;
+  margin: 0;
+}
+
+.content {
+  margin: 2em 0;
 }
 
 .subLogo {
