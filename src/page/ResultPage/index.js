@@ -45,7 +45,7 @@ const state = [
 
 const ResultPage = () => {
   const [seconds, setSeconds] = React.useState(10);
-  const { incrementQuestNumber } = useGeeksActions();
+  const { incrementQuestNumber, setPlug } = useGeeksActions();
   const { questionNumber } = useGeeksState();
   const { status } = useParams();
   const navigate = useNavigate();
@@ -55,10 +55,13 @@ const ResultPage = () => {
     if (seconds <= 0) {
       console.log(questionNumber);
       console.log(data.ethers[0].questions.length);
-      incrementQuestNumber(questionNumber + 1);
-      questionNumber >= data.ethers[0].questions.length
-        ? navigate("/plug")
-        : navigate("/quest");
+      if (questionNumber >= data.ethers[0].questions.length) {
+        setPlug("completed");
+        navigate("/plug");
+      } else {
+        incrementQuestNumber(questionNumber + 1);
+        navigate("/quest");
+      }
       // navigate("/quest");
     }
 
