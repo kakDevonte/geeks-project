@@ -25,6 +25,8 @@ const QuestionsPage = () => {
   const [seconds, setSeconds] = React.useState(0);
   const [isMount, setIsMount] = React.useState(false);
 
+  console.log("QUESTION NUMBER === ", questionNumber);
+
   React.useEffect(() => {
     const date1 = new Date();
     const date2 = new Date(

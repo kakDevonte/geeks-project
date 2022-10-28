@@ -55,7 +55,7 @@ const ResultPage = () => {
     if (seconds <= 0) {
       console.log(questionNumber);
       console.log(data.ethers[0].questions.length);
-      if (questionNumber >= data.ethers[0].questions.length) {
+      if (questionNumber > data.ethers[0].questions.length) {
         setPlug("completed");
         navigate("/plug");
       } else {
