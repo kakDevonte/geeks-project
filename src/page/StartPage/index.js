@@ -7,39 +7,60 @@ import { useGeeksActions } from "../../context/geeks-context";
 import inTimeSpan from "../../utils/inTimeSpan";
 import { lives } from "../../utils/data";
 
+const timezones = [
+  { name: "Europe/Moscow", time: -180 },
+  { name: "Europe/Samara", time: -240 },
+  { name: "Europe/Kaliningrad", time: -120 },
+  { name: "Asia/Yekaterinburg", time: -300 },
+  { name: "Asia/Omsk", time: -360 },
+  { name: "Asia/Krasnoyarsk", time: -420 },
+  { name: "Asia/Irkutsk", time: -480 },
+  { name: "Asia/Yakutsk", time: -540 },
+  { name: "Asia/Vladivostok", time: -600 },
+];
+
+function containsTimezone(obj, list) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].time === obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const StartPage = () => {
   const navigate = useNavigate();
-  const { setPlug, setLive, incrementQuestNumber } = useGeeksActions();
+  const { setPlug, setLive, incrementQuestNumber, setTimezone } =
+    useGeeksActions();
 
   const onClickStart = () => {
     const now = new Date();
+    const offset = new Date().getTimezoneOffset();
+    const isTimezone = containsTimezone(offset, timezones);
 
-    // if (now.getDay() !== 2) {
-    //   setPlug("not-tuesday");
-    //   navigate("/plug");
-    //   return;
-    // } else
-    if (
-      true
-      // inTimeSpan(
-      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
-      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
-      // )
+    for (let item of timezones) {
+      if (offset === item.time) {
+        setTimezone(item);
+      }
+    }
+
+    if (!isTimezone) {
+      setPlug("not-timezone");
+      navigate("/plug");
+      return;
+    } else if (now.getDay() !== 2) {
+      setPlug("not-tuesday");
+      navigate("/plug");
+      return;
+    } else if (
+      inTimeSpan(
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
+      )
     ) {
       let currLive;
       for (let i = 0; i < lives.length; i++) {
-        if (
-          inTimeSpan(
-            new Date(
-              now.getFullYear(),
-              now.getMonth(),
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes()
-            ),
-            new Date(lives[i].end)
-          )
-        ) {
+        if (inTimeSpan(new Date(lives[i].start), new Date(lives[i].end))) {
           currLive = lives[i];
           console.log(lives[i]);
           setLive(lives[i].questions);
@@ -53,7 +74,6 @@ const StartPage = () => {
             new Date(currLive.questions[i].end)
           )
         ) {
-          console.log("НУЖНЫЕ ВОПРОСЫ ========= ", i);
           incrementQuestNumber(i);
           break;
         }
@@ -76,6 +96,9 @@ const StartPage = () => {
       setPlug("completed");
       navigate("/plug");
       return;
+    } else {
+      setPlug("not-tuesday");
+      navigate("/plug");
     }
   };
 

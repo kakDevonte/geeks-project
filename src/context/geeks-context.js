@@ -1,13 +1,22 @@
 import React from "react";
+import { geeksAPI } from "../api/geeks-api";
 
 const SET_PLUG = "SET_PLUG";
+const SET_USER = "SET_USER";
 const SET_LIVE = "SET_LIVE";
+const SET_TIMEZONE = "SET_TIMEZONE";
+const SET_IS_WIN = "SET_IS_WIN";
+const SEND_ANSWER = "SEND_ANSWER";
 const INCREMENT_QUEST_NUMBER = "INCREMENT_QUEST_NUMBER";
 
 const initialState = {
+  user: null,
   plug: null,
   questionNumber: 0,
   live: null,
+  isWin: false,
+  currLive: null,
+  currTimezone: null,
 };
 const GeeksContext = React.createContext();
 
@@ -21,10 +30,22 @@ export const GeeksContextProvider = (props) => {
         payload: type,
       });
     },
+    setUser: (user) => {
+      dispatch({
+        type: SET_USER,
+        payload: user,
+      });
+    },
     setLive: (live) => {
       dispatch({
         type: SET_LIVE,
         payload: live,
+      });
+    },
+    setTimezone: (timezone) => {
+      dispatch({
+        type: SET_TIMEZONE,
+        payload: timezone,
       });
     },
     incrementQuestNumber: (number) => {
@@ -32,6 +53,9 @@ export const GeeksContextProvider = (props) => {
         type: INCREMENT_QUEST_NUMBER,
         payload: number,
       });
+    },
+    sendAnswer: async (liveDate, number, timezone, answer) => {
+      await geeksAPI.sendAnswer(liveDate, number, timezone, answer);
     },
     isWin: (user) => {},
   };
@@ -50,6 +74,15 @@ const reducer = (state, action) => {
     }
     case SET_LIVE: {
       return { ...state, live: action.payload };
+    }
+    case SET_USER: {
+      return { ...state, user: action.payload };
+    }
+    case SET_IS_WIN: {
+      return { ...state, isWin: action.payload };
+    }
+    case SET_TIMEZONE: {
+      return { ...state, currTimezone: action.payload };
     }
     case INCREMENT_QUEST_NUMBER: {
       return { ...state, questionNumber: action.payload };

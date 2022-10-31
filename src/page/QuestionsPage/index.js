@@ -5,7 +5,7 @@ import styles from "./QuestionsPage.module.scss";
 import Button from "../../components/Button";
 import children from "../../assets/image/children.png";
 import logo from "../../assets/image/logo-footer.png";
-import { useGeeksState } from "../../context/geeks-context";
+import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
 
 const secondsInDate = (time) => {
   let date = new Date(time);
@@ -15,7 +15,8 @@ const secondsInDate = (time) => {
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  const { questionNumber, live } = useGeeksState();
+  const { questionNumber, live, user, currTimezone } = useGeeksState();
+  const { sendAnswer } = useGeeksActions();
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [answer, setAnswer] = React.useState(null);
   const [index, setIndex] = React.useState(null);
@@ -65,6 +66,16 @@ const QuestionsPage = () => {
     setAnswer(letter);
     setIndex(index);
     setAnswerText(text);
+  };
+
+  const onClickSendAnswer = () => {
+    const currAns = index === live[questionNumber].correct;
+    sendAnswer(new Date(), questionNumber, currTimezone, {
+      ...user,
+      correct: currAns,
+    });
+    setIsAnswered(true);
+    setSeconds(seconds - 1);
   };
 
   if (!isMount) return <></>;
@@ -122,10 +133,7 @@ const QuestionsPage = () => {
             <Button
               disabled={answer}
               title={"ОТПРАВИТЬ ОТВЕТ"}
-              onClick={() => {
-                setIsAnswered(true);
-                setSeconds(seconds - 1);
-              }}
+              onClick={onClickSendAnswer}
             />
           </div>
         )}

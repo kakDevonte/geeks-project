@@ -6,7 +6,14 @@ import { useGeeksState } from "../../context/geeks-context";
 
 export const PlugPage = () => {
   const navigate = useNavigate();
-  const { plug } = useGeeksState();
+  const { plug, currTimezone } = useGeeksState();
+
+  React.useEffect(() => {
+    if (!plug) {
+      navigate("/");
+    }
+  }, []);
+
   const getTittle = () => {
     if (plug === "not-tuesday") {
       return (
@@ -20,6 +27,16 @@ export const PlugPage = () => {
             таланты детей <br /> и выйграй <br />
             500 рублей!
           </h2>
+        </div>
+      );
+    }
+    if (plug === "not-timezone") {
+      return (
+        <div>
+          <h1 className={styles.title}>
+            ИЗВИНИТЕ, В ВАШЕМ <br /> ЧАСОВОМ ПОЯСЕ <br /> ВИКТОРИНА <br /> НЕ
+            ПРОВОДИТСЯ
+          </h1>
         </div>
       );
     }

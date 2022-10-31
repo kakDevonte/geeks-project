@@ -5,11 +5,14 @@ const instance = axios.create({
   //baseURL: 'https://dead-pear-chipmunk-suit.cyclic.app/api/',
 });
 
-export const wheelAPI = {
+export const geeksAPI = {
   getUser() {
     return instance.get(`/${id}`);
   },
   getQuest(date) {
     return instance.get(`/${date}`);
+  },
+  sendAnswer(liveDate, number, timezone, answer) {
+    return instance.post(`/`, { liveDate, number, timezone, answer });
   },
 };
