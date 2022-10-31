@@ -2,12 +2,14 @@ import React from "react";
 
 const SET_PLUG = "SET_PLUG";
 const SET_LIVE = "SET_LIVE";
+const SET_IS_WIN = "SET_IS_WIN";
 const INCREMENT_QUEST_NUMBER = "INCREMENT_QUEST_NUMBER";
 
 const initialState = {
   plug: null,
   questionNumber: 0,
   live: null,
+  isWin: false,
 };
 const GeeksContext = React.createContext();
 
@@ -50,6 +52,9 @@ const reducer = (state, action) => {
     }
     case SET_LIVE: {
       return { ...state, live: action.payload };
+    }
+    case SET_IS_WIN: {
+      return { ...state, isWin: action.payload };
     }
     case INCREMENT_QUEST_NUMBER: {
       return { ...state, questionNumber: action.payload };
