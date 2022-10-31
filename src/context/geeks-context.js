@@ -1,31 +1,13 @@
 import React from "react";
 
 const SET_PLUG = "SET_PLUG";
+const SET_LIVE = "SET_LIVE";
 const INCREMENT_QUEST_NUMBER = "INCREMENT_QUEST_NUMBER";
 
 const initialState = {
   plug: null,
   questionNumber: 0,
-  live: {
-    id: 0,
-    start: "123",
-    end: "321",
-    timezone: "+1",
-    questions: [
-      {
-        id: 0,
-        text: "adsdadadad",
-        users: [
-          {
-            id: 321,
-            first_name: "Alex",
-            last_name: "Hat",
-            response_time: "123",
-          },
-        ],
-      },
-    ],
-  },
+  live: null,
 };
 const GeeksContext = React.createContext();
 
@@ -39,12 +21,19 @@ export const GeeksContextProvider = (props) => {
         payload: type,
       });
     },
+    setLive: (live) => {
+      dispatch({
+        type: SET_LIVE,
+        payload: live,
+      });
+    },
     incrementQuestNumber: (number) => {
       dispatch({
         type: INCREMENT_QUEST_NUMBER,
         payload: number,
       });
     },
+    isWin: (user) => {},
   };
 
   return (
@@ -58,6 +47,9 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_PLUG: {
       return { ...state, plug: action.payload };
+    }
+    case SET_LIVE: {
+      return { ...state, live: action.payload };
     }
     case INCREMENT_QUEST_NUMBER: {
       return { ...state, questionNumber: action.payload };

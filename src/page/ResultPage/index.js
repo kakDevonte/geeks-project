@@ -43,19 +43,33 @@ const state = [
   },
 ];
 
+const secondsInDate = (time) => {
+  let date = new Date(time);
+  const diff = date - new Date();
+  return diff / 1000;
+};
+
 const ResultPage = () => {
   const [seconds, setSeconds] = React.useState(10);
+  const [isMount, setIsMount] = React.useState(false);
   const { incrementQuestNumber, setPlug } = useGeeksActions();
-  const { questionNumber } = useGeeksState();
+  const { questionNumber, live } = useGeeksState();
   const { status } = useParams();
   const navigate = useNavigate();
   let index;
 
   React.useEffect(() => {
+    if (!live) return;
+    const date2 = new Date(live[questionNumber + 1].start);
+    setSeconds(secondsInDate(date2));
+    setIsMount(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!isMount) return;
+
     if (seconds <= 0) {
-      console.log(questionNumber);
-      console.log(data.ethers[0].questions.length);
-      if (questionNumber > data.ethers[0].questions.length) {
+      if (questionNumber > data.ethers[0].questions.length + 1) {
         setPlug("completed");
         navigate("/plug");
       } else {

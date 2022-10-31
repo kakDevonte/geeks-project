@@ -5,11 +5,9 @@ import styles from "./QuestionsPage.module.scss";
 import Button from "../../components/Button";
 import children from "../../assets/image/children.png";
 import logo from "../../assets/image/logo-footer.png";
-import data from "../../utils/data.json";
 import { useGeeksState } from "../../context/geeks-context";
 
 const secondsInDate = (time) => {
-  let now = new Date();
   let date = new Date(time);
   const diff = date - new Date();
   return diff / 1000;
@@ -17,7 +15,7 @@ const secondsInDate = (time) => {
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  const { questionNumber } = useGeeksState();
+  const { questionNumber, live } = useGeeksState();
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [answer, setAnswer] = React.useState(null);
   const [index, setIndex] = React.useState(null);
@@ -28,23 +26,23 @@ const QuestionsPage = () => {
   console.log("QUESTION NUMBER === ", questionNumber);
 
   React.useEffect(() => {
-    const date1 = new Date();
-    const date2 = new Date(
-      date1.getFullYear(),
-      date1.getMonth(),
-      date1.getDate(),
-      date1.getHours(),
-      date1.getMinutes() + 1
-    );
+    if (!live) {
+      navigate("/");
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!live) return;
+    const date2 = new Date(live[questionNumber].end);
+    console.log(live[questionNumber]);
     setSeconds(secondsInDate(date2));
     setIsMount(true);
   }, []);
 
   React.useEffect(() => {
     if (!isMount) return;
-    console.log(isAnswered);
     if (seconds <= 0 && isAnswered) {
-      if (index === data.ethers[0].questions[questionNumber].correct) {
+      if (index === live[questionNumber].correct) {
         navigate(`/result/win`);
       } else {
         navigate("/result/so-close");
@@ -54,7 +52,7 @@ const QuestionsPage = () => {
       navigate(`/result/lose`);
     }
 
-    console.log(seconds);
+    console.log("СЕКУНД ВОПРОСА = ", seconds);
     let myInterval = setInterval(() => {
       setSeconds(seconds - 1);
     }, 1000);
@@ -68,6 +66,8 @@ const QuestionsPage = () => {
     setIndex(index);
     setAnswerText(text);
   };
+
+  if (!isMount) return <></>;
 
   return (
     <div className={styles.root}>
@@ -90,42 +90,29 @@ const QuestionsPage = () => {
           <div>
             <QuestionButton
               letter={"А"}
-              answer={data.ethers[0].questions[questionNumber].answers[0]}
+              answer={live[questionNumber].answers[0]}
               // type={"yellow"}
               isActive={answer === "A"}
               onClick={
-                () =>
-                  onClickQuest(
-                    "A",
-                    1,
-                    data.ethers[0].questions[questionNumber].answers[0]
-                  ) //data.ethers[0].questions[1].answers[0]
+                () => onClickQuest("A", 1, live[questionNumber].answers[0]) //data.ethers[0].questions[1].answers[0]
               }
             />
             <QuestionButton
               letter={"B"}
-              answer={data.ethers[0].questions[questionNumber].answers[1]}
+              answer={live[questionNumber].answers[1]}
               // type={"yellow"}
               isActive={answer === "B"}
               onClick={() =>
-                onClickQuest(
-                  "B",
-                  2,
-                  data.ethers[0].questions[questionNumber].answers[1]
-                )
+                onClickQuest("B", 2, live[questionNumber].answers[1])
               }
             />
             <QuestionButton
               letter={"C"}
-              answer={data.ethers[0].questions[questionNumber].answers[2]}
+              answer={live[questionNumber].answers[2]}
               // type={"yellow"}
               isActive={answer === "C"}
               onClick={() =>
-                onClickQuest(
-                  "C",
-                  3,
-                  data.ethers[0].questions[questionNumber].answers[2]
-                )
+                onClickQuest("C", 3, live[questionNumber].answers[2])
               }
             />
           </div>

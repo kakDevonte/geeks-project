@@ -5,25 +5,59 @@ import logo from "../../assets/image/main-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useGeeksActions } from "../../context/geeks-context";
 import inTimeSpan from "../../utils/inTimeSpan";
-import data from "../../utils/data.json";
+import { lives } from "../../utils/data";
 
 const StartPage = () => {
   const navigate = useNavigate();
-  const { setPlug } = useGeeksActions();
+  const { setPlug, setLive, incrementQuestNumber } = useGeeksActions();
 
   const onClickStart = () => {
     const now = new Date();
 
-    if (now.getDay() !== 2) {
-      setPlug("not-tuesday");
-      navigate("/plug");
-      return;
-    } else if (
-      inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
-      )
+    // if (now.getDay() !== 2) {
+    //   setPlug("not-tuesday");
+    //   navigate("/plug");
+    //   return;
+    // } else
+    if (
+      true
+      // inTimeSpan(
+      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
+      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
+      // )
     ) {
+      let currLive;
+      for (let i = 0; i < lives.length; i++) {
+        if (
+          inTimeSpan(
+            new Date(
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate(),
+              now.getHours(),
+              now.getMinutes()
+            ),
+            new Date(lives[i].end)
+          )
+        ) {
+          currLive = lives[i];
+          console.log(lives[i]);
+          setLive(lives[i].questions);
+          break;
+        }
+      }
+      for (let i = 0; i < currLive.questions.length; i++) {
+        if (
+          inTimeSpan(
+            new Date(currLive.questions[i].start),
+            new Date(currLive.questions[i].end)
+          )
+        ) {
+          console.log("НУЖНЫЕ ВОПРОСЫ ========= ", i);
+          incrementQuestNumber(i);
+          break;
+        }
+      }
       navigate("/quest");
       return;
     } else if (
