@@ -60,7 +60,7 @@ const ResultPage = () => {
 
   React.useEffect(() => {
     if (!live) return;
-    const date2 = new Date(live[questionNumber + 1].start);
+    const date2 = new Date(live[questionNumber + 1]?.start);
     setSeconds(secondsInDate(date2));
     setIsMount(true);
   }, []);

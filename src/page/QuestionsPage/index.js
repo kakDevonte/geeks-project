@@ -122,7 +122,10 @@ const QuestionsPage = () => {
             <Button
               disabled={answer}
               title={"ОТПРАВИТЬ ОТВЕТ"}
-              onClick={() => setIsAnswered(true)}
+              onClick={() => {
+                setIsAnswered(true);
+                setSeconds(seconds - 1);
+              }}
             />
           </div>
         )}
