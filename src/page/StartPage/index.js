@@ -44,19 +44,21 @@ const StartPage = () => {
       }
     }
 
-    if (!isTimezone) {
-      setPlug("not-timezone");
-      navigate("/plug");
-      return;
-    } else if (now.getDay() !== 2) {
-      setPlug("not-tuesday");
-      navigate("/plug");
-      return;
-    } else if (
-      inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
-      )
+    // if (!isTimezone) {
+    //   setPlug("not-timezone");
+    //   navigate("/plug");
+    //   return;
+    // } else if (now.getDay() !== 2) {
+    //   setPlug("not-tuesday");
+    //   navigate("/plug");
+    //   return;
+    // } else
+    if (
+      true
+      // inTimeSpan(
+      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
+      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
+      // )
     ) {
       let currLive;
       for (let i = 0; i < lives.length; i++) {

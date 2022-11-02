@@ -15,4 +15,10 @@ export const geeksAPI = {
   sendAnswer(liveDate, number, timezone, answer) {
     return instance.post(`/`, { liveDate, number, timezone, answer });
   },
+  isAnswer(liveDate, number, timezone, answer) {
+    return instance.post(`/is-answer`, { liveDate, number, timezone, answer });
+  },
+  isWin(liveDate, number, timezone, answer) {
+    return instance.post(`/is-win`, { liveDate, number, timezone, answer });
+  },
 };

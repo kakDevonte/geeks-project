@@ -34,7 +34,7 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 4
+          start.getMinutes() + 1
         ), // "2022-03-29T20:37:17",
         correct: 2,
         answers: [
@@ -49,14 +49,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 7
+          start.getMinutes() + 2
         ), //"2022-03-29T20:41:09",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 11
+          start.getMinutes() + 3
         ), //"2022-03-29T20:43:21",
         correct: 1,
         answers: [
@@ -71,14 +71,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 15
+          start.getMinutes() + 4
         ), //"2022-03-29T20:47:11",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 18
+          start.getMinutes() + 5
         ), //"2022-03-29T20:49:15",
         correct: 3,
         answers: [
@@ -93,14 +93,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 22
+          start.getMinutes() + 6
         ), //"2022-03-29T20:52:04",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 25
+          start.getMinutes() + 7
         ), //"2022-03-29T20:53:58",
         correct: 2,
         answers: [
@@ -115,14 +115,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 29
+          start.getMinutes() + 8
         ), //"2022-03-29T20:58:33",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 31
+          start.getMinutes() + 9
         ), //"2022-03-29T21:01:02",
         correct: 2,
         answers: [
@@ -137,14 +137,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 35
+          start.getMinutes() + 10
         ), //"2022-03-29T21:05:10",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 38
+          start.getMinutes() + 11
         ), //"2022-03-29T21:06:52",
         correct: 2,
         answers: [
@@ -159,14 +159,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 44
+          start.getMinutes() + 12
         ), //"2022-03-29T21:11:25",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 47
+          start.getMinutes() + 13
         ), //"2022-03-29T21:13:11",
         correct: 1,
         answers: [
@@ -181,14 +181,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 51
+          start.getMinutes() + 14
         ), //"2022-03-29T21:16:03",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 54
+          start.getMinutes() + 15
         ), //"2022-03-29T21:18:14",
         correct: 2,
         answers: [
@@ -203,14 +203,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 58
+          start.getMinutes() + 16
         ), //"2022-03-29T21:22:05",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 61
+          start.getMinutes() + 17
         ), //"2022-03-29T21:23:54",
         correct: 2,
         answers: [
@@ -225,14 +225,14 @@ export const lives = [
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 65
+          start.getMinutes() + 18
         ), //"2022-03-29T21:28:12",
         end: new Date(
           start.getFullYear(),
           start.getMonth(),
           start.getDate(),
           start.getHours(),
-          start.getMinutes() + 68
+          start.getMinutes() + 19
         ), //"2022-03-29T21:31:04",
         correct: 3,
         answers: [

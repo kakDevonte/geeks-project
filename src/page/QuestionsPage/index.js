@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import children from "../../assets/image/children.png";
 import logo from "../../assets/image/logo-footer.png";
 import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
+import { geeksAPI } from "../../api/geeks-api";
 
 const secondsInDate = (time) => {
   let date = new Date(time);
@@ -33,9 +34,17 @@ const QuestionsPage = () => {
   }, []);
 
   React.useEffect(() => {
+    (async () => {
+      const { data } = await geeksAPI.isAnswer();
+      if (data) {
+        setIsAnswered(true);
+      }
+    })();
+  }, []);
+
+  React.useEffect(() => {
     if (!live) return;
     const date2 = new Date(live[questionNumber].end);
-    console.log(live[questionNumber]);
     setSeconds(secondsInDate(date2));
     setIsMount(true);
   }, []);
@@ -70,10 +79,15 @@ const QuestionsPage = () => {
 
   const onClickSendAnswer = () => {
     const currAns = index === live[questionNumber].correct;
-    sendAnswer(new Date(), questionNumber, currTimezone, {
-      ...user,
-      correct: currAns,
-    });
+    sendAnswer(
+      new Date().toLocaleDateString("ru-RU"),
+      questionNumber,
+      currTimezone,
+      {
+        ...user,
+        correct: currAns,
+      }
+    );
     setIsAnswered(true);
     setSeconds(seconds - 1);
   };
