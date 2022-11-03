@@ -79,6 +79,9 @@ const QuestionsPage = () => {
 
   const onClickSendAnswer = () => {
     const currAns = index === live[questionNumber].correct;
+    //var today  = new Date();
+    //
+    // console.log(today.toLocaleDateString("ru") + " " + today.toLocaleTimeString("ru"));
     sendAnswer(
       new Date().toLocaleDateString("ru-RU"),
       questionNumber,
