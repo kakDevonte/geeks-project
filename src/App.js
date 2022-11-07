@@ -1,13 +1,13 @@
 import React from "react";
 import bridge from "@vkontakte/vk-bridge";
 import logo from "./assets/image/PT logo.png";
-
 import "./App.scss";
 import { PlugPage } from "./page/PlugPage";
 import QuestionsPage from "./page/QuestionsPage";
 import ResultPage from "./page/ResultPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StartPage from "./page/StartPage";
+import { geeksAPI } from "./api/geeks-api";
 
 const App = () => {
   return (

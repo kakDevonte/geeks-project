@@ -17,7 +17,7 @@ const secondsInDate = (time) => {
 const QuestionsPage = () => {
   const navigate = useNavigate();
   const { questionNumber, live, user, currTimezone } = useGeeksState();
-  const { sendAnswer } = useGeeksActions();
+  const { sendAnswer, setQuest } = useGeeksActions();
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [answer, setAnswer] = React.useState(null);
   const [index, setIndex] = React.useState(null);
@@ -26,6 +26,7 @@ const QuestionsPage = () => {
   const [isMount, setIsMount] = React.useState(false);
 
   console.log("QUESTION NUMBER === ", questionNumber);
+  console.log("USER === ", user);
 
   React.useEffect(() => {
     if (!live) {
@@ -34,10 +35,60 @@ const QuestionsPage = () => {
   }, []);
 
   React.useEffect(() => {
+    if (!live) return;
     (async () => {
-      const { data } = await geeksAPI.isAnswer();
+      const now = new Date();
+
+      const { data } = await geeksAPI.getQuest(
+        now.toLocaleDateString("ru"),
+        live[questionNumber].number,
+        currTimezone
+      );
       if (data) {
-        setIsAnswered(true);
+        setQuest(data);
+      } else {
+        await geeksAPI.createQuest({
+          liveDate: now.toLocaleDateString("ru"),
+          number: live[questionNumber].number,
+          answers: [],
+          timezone: currTimezone,
+        });
+      }
+    })();
+  }, []);
+
+  React.useEffect(() => {
+    if (!live) return;
+    (async () => {
+      const now = new Date();
+      const { data } = await geeksAPI.isAnswer({
+        liveDate: now.toLocaleDateString("ru"),
+        number: live[questionNumber].number,
+        id: user.id,
+        timezone: currTimezone,
+      });
+      if (data) {
+        setIsAnswered(data.isAnswer);
+        let letter, text;
+        switch (data.index) {
+          case 1: {
+            letter = "A";
+            text = live[questionNumber].answers[0];
+            break;
+          }
+          case 2: {
+            letter = "B";
+            text = live[questionNumber].answers[1];
+            break;
+          }
+          case 3: {
+            letter = "C";
+            text = live[questionNumber].answers[2];
+            break;
+          }
+        }
+        setAnswer(letter);
+        setAnswerText(text);
       }
     })();
   }, []);
@@ -52,13 +103,17 @@ const QuestionsPage = () => {
   React.useEffect(() => {
     if (!isMount) return;
     if (seconds <= 0 && isAnswered) {
-      if (index === live[questionNumber].correct) {
-        navigate(`/result/win`);
-      } else {
-        navigate("/result/so-close");
-      }
-    }
-    if (seconds <= 0 && !isAnswered) {
+      (async () => {
+        const { data } = await geeksAPI.isWin({
+          liveDate: new Date().toLocaleDateString("ru"),
+          number: live[questionNumber].number,
+          id: user.id,
+          timezone: currTimezone,
+        });
+        console.log("РЕЗУЛЬТАТ = ", data);
+        navigate(`/result/${data}`);
+      })();
+    } else if (seconds <= 0 && !isAnswered) {
       navigate(`/result/lose`);
     }
 
@@ -79,16 +134,17 @@ const QuestionsPage = () => {
 
   const onClickSendAnswer = () => {
     const currAns = index === live[questionNumber].correct;
-    //var today  = new Date();
-    //
-    // console.log(today.toLocaleDateString("ru") + " " + today.toLocaleTimeString("ru"));
+    const today = new Date();
     sendAnswer(
-      new Date().toLocaleDateString("ru-RU"),
-      questionNumber,
+      today.toLocaleDateString("ru"),
+      live[questionNumber].number,
       currTimezone,
       {
         ...user,
+        timeAnswer:
+          today.toLocaleDateString("ru") + " " + today.toLocaleTimeString("ru"),
         correct: currAns,
+        numberAns: index,
       }
     );
     setIsAnswered(true);

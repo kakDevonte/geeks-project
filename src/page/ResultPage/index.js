@@ -60,16 +60,21 @@ const ResultPage = () => {
 
   React.useEffect(() => {
     if (!live) return;
-    const date2 = new Date(live[questionNumber + 1]?.start);
-    setSeconds(secondsInDate(date2));
+    if (live[questionNumber + 1]?.start) {
+      const date2 = new Date(live[questionNumber + 1]?.start);
+      setSeconds(secondsInDate(date2));
+    } else {
+      setSeconds(secondsInDate(1000));
+    }
     setIsMount(true);
   }, []);
 
   React.useEffect(() => {
     if (!isMount) return;
+    console.log(questionNumber + 1 + "  " + data.ethers[0].questions.length);
 
     if (seconds <= 0) {
-      if (questionNumber > data.ethers[0].questions.length + 1) {
+      if (questionNumber + 1 >= data.ethers[0].questions.length) {
         setPlug("completed");
         navigate("/plug");
       } else {

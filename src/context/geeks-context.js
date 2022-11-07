@@ -4,6 +4,7 @@ import { geeksAPI } from "../api/geeks-api";
 const SET_PLUG = "SET_PLUG";
 const SET_USER = "SET_USER";
 const SET_LIVE = "SET_LIVE";
+const SET_QUEST = "SET_QUEST";
 const SET_TIMEZONE = "SET_TIMEZONE";
 const SET_IS_WIN = "SET_IS_WIN";
 const SEND_ANSWER = "SEND_ANSWER";
@@ -16,6 +17,7 @@ const initialState = {
   live: null,
   isWin: false,
   currLive: null,
+  quest: null,
   currTimezone: null,
 };
 const GeeksContext = React.createContext();
@@ -40,6 +42,12 @@ export const GeeksContextProvider = (props) => {
       dispatch({
         type: SET_LIVE,
         payload: live,
+      });
+    },
+    setQuest: (quest) => {
+      dispatch({
+        type: SET_QUEST,
+        payload: quest,
       });
     },
     setTimezone: (timezone) => {
@@ -77,6 +85,9 @@ const reducer = (state, action) => {
     }
     case SET_USER: {
       return { ...state, user: action.payload };
+    }
+    case SET_QUEST: {
+      return { ...state, quest: action.payload };
     }
     case SET_IS_WIN: {
       return { ...state, isWin: action.payload };

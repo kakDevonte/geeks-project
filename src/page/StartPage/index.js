@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useGeeksActions } from "../../context/geeks-context";
 import inTimeSpan from "../../utils/inTimeSpan";
 import { lives } from "../../utils/data";
+import bridge from "@vkontakte/vk-bridge";
+import { geeksAPI } from "../../api/geeks-api";
 
 const timezones = [
   { name: "Europe/Moscow", time: -180 },
@@ -30,8 +32,49 @@ function containsTimezone(obj, list) {
 
 const StartPage = () => {
   const navigate = useNavigate();
-  const { setPlug, setLive, incrementQuestNumber, setTimezone } =
+  const { setPlug, setLive, incrementQuestNumber, setTimezone, setUser } =
     useGeeksActions();
+
+  React.useEffect(() => {
+    (async () => {
+      let timezone;
+      const offset = new Date().getTimezoneOffset();
+      for (let item of timezones) {
+        if (offset === item.time) {
+          timezone = item.time;
+          setTimezone(((item.time + 180) / 60) * -1);
+        }
+      }
+      await geeksAPI.incrementOpenApp(((timezone + 180) / 60) * -1);
+    })();
+  }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      const user = await bridge.send("VKWebAppGetUserInfo");
+      console.log(user);
+      const { data } = await geeksAPI.getUser(user.id);
+      if (data) {
+        setUser(data);
+      } else {
+        let timezone;
+        const offset = new Date().getTimezoneOffset();
+        for (let item of timezones) {
+          if (offset === item.time) {
+            timezone = item.time;
+            setTimezone(((item.time + 180) / 60) * -1);
+          }
+        }
+        const data = await geeksAPI.createUser({
+          id: user.id,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          timezone: ((timezone + 180) / 60) * -1,
+        });
+        setUser(data.data);
+      }
+    })();
+  }, []);
 
   const onClickStart = () => {
     const now = new Date();
@@ -40,7 +83,7 @@ const StartPage = () => {
 
     for (let item of timezones) {
       if (offset === item.time) {
-        setTimezone(item);
+        setTimezone(((item.time + 180) / 60) * -1);
       }
     }
 

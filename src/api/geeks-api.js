@@ -6,19 +6,30 @@ const instance = axios.create({
 });
 
 export const geeksAPI = {
-  getUser() {
-    return instance.get(`/${id}`);
+  getUser(id) {
+    return instance.get(`user/${id}`);
   },
-  getQuest(date) {
-    return instance.get(`/${date}`);
+  createUser(data) {
+    return instance.post(`user/`, data);
+  },
+  incrementOpenApp(timezone) {
+    return instance.get(`stats/${timezone}`);
+  },
+  getQuest(liveDate, number, timezone) {
+    return instance.get(
+      `/quest?liveDate=${liveDate}&number=${number}&timezone=${timezone}`
+    );
+  },
+  createQuest(data) {
+    return instance.post(`quest/`, data);
   },
   sendAnswer(liveDate, number, timezone, answer) {
-    return instance.post(`/`, { liveDate, number, timezone, answer });
+    return instance.put(`quest/`, { liveDate, number, timezone, answer });
   },
-  isAnswer(liveDate, number, timezone, answer) {
-    return instance.post(`/is-answer`, { liveDate, number, timezone, answer });
+  isAnswer(data) {
+    return instance.post(`quest/is-answer`, data);
   },
-  isWin(liveDate, number, timezone, answer) {
-    return instance.post(`/is-win`, { liveDate, number, timezone, answer });
+  isWin(data) {
+    return instance.post(`quest/is-win`, data);
   },
 };
