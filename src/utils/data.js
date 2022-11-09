@@ -1,41 +1,12 @@
-const now = new Date();
-
-const start = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  now.getDate(),
-  now.getHours(),
-  now.getMinutes()
-);
-
-const end = new Date(
-  now.getFullYear(),
-  now.getMonth(),
-  now.getDate(),
-  now.getHours() + 1,
-  now.getMinutes()
-);
-
 export const lives = [
   {
-    start: start, //"2022-03-29T20:30:00",
-    end: end, //"2022-03-29T21:40:00",
+    start: "2022-11-09T12:50:00",
+    end: "2022-11-09T13:30:00",
+    number: 1,
     questions: [
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes()
-        ), //"2022-03-29T20:34:43",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 1
-        ), // "2022-03-29T20:37:17",
+        start: "2022-11-09T12:50:00",
+        end: "2022-11-09T12:51:00",
         correct: 2,
         answers: [
           "ПОВЕЛИТЕЛЬНИЦА ОГНЯ",
@@ -45,20 +16,8 @@ export const lives = [
         number: 1,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 2
-        ), //"2022-03-29T20:41:09",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 3
-        ), //"2022-03-29T20:43:21",
+        start: "2022-11-09T12:52:00",
+        end: "2022-11-09T12:53:00",
         correct: 1,
         answers: [
           "ОБЛАДАЕТ ФАНТАСТИЧЕСКОЙ ПАМЯТЬЮ",
@@ -68,20 +27,8 @@ export const lives = [
         number: 2,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 4
-        ), //"2022-03-29T20:47:11",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 5
-        ), //"2022-03-29T20:49:15",
+        start: "2022-11-09T12:54:00",
+        end: "2022-11-09T12:55:00",
         correct: 3,
         answers: [
           "ЗНАЕТ ВСЕ ПРАВИЛА ЭТИКЕТА",
@@ -91,20 +38,8 @@ export const lives = [
         number: 3,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 6
-        ), //"2022-03-29T20:52:04",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 7
-        ), //"2022-03-29T20:53:58",
+        start: "2022-11-09T12:56:00",
+        end: "2022-11-09T12:57:00",
         correct: 2,
         answers: [
           "РЕКОРДСМЕНКА ПО ПРЫЖКАМ НА СКАКАЛКЕ",
@@ -114,20 +49,8 @@ export const lives = [
         number: 4,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 8
-        ), //"2022-03-29T20:58:33",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 9
-        ), //"2022-03-29T21:01:02",
+        start: "2022-11-09T12:58:00",
+        end: "2022-11-09T12:59:00",
         correct: 2,
         answers: [
           "ЗНАЕТ ВСЁ О ЖИВОТНЫХ",
@@ -137,20 +60,8 @@ export const lives = [
         number: 5,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 10
-        ), //"2022-03-29T21:05:10",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 11
-        ), //"2022-03-29T21:06:52",
+        start: "2022-11-09T13:00:00",
+        end: "2022-11-09T13:01:00",
         correct: 2,
         answers: [
           "ЧЕМПИОН ПО СКОРОСТИ НАБИВАНИЯ ТЕКСТА",
@@ -160,20 +71,8 @@ export const lives = [
         number: 6,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 12
-        ), //"2022-03-29T21:11:25",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 13
-        ), //"2022-03-29T21:13:11",
+        start: "2022-11-09T13:02:00",
+        end: "2022-11-09T13:03:00",
         correct: 1,
         answers: [
           "ВИРТУОЗНО ИГРАЕТ НА БАРАБАНАХ",
@@ -183,20 +82,8 @@ export const lives = [
         number: 7,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 14
-        ), //"2022-03-29T21:16:03",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 15
-        ), //"2022-03-29T21:18:14",
+        start: "2022-11-09T13:04:00",
+        end: "2022-11-09T13:05:00",
         correct: 2,
         answers: [
           "САМ ШЬЁТ СЕБЕ ОДЕЖДУ",
@@ -206,20 +93,8 @@ export const lives = [
         number: 8,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 16
-        ), //"2022-03-29T21:22:05",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 17
-        ), //"2022-03-29T21:23:54",
+        start: "2022-11-09T13:06:00",
+        end: "2022-11-09T13:07:00",
         correct: 2,
         answers: [
           "РИСУЕТ ГРАФФИТИ С 5 ЛЕТ",
@@ -229,20 +104,8 @@ export const lives = [
         number: 9,
       },
       {
-        start: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 18
-        ), //"2022-03-29T21:28:12",
-        end: new Date(
-          start.getFullYear(),
-          start.getMonth(),
-          start.getDate(),
-          start.getHours(),
-          start.getMinutes() + 19
-        ), //"2022-03-29T21:31:04",
+        start: "2022-11-09T13:08:00",
+        end: "2022-11-09T13:09:00",
         correct: 3,
         answers: [
           "ЧЕМПИОН ПО ИГРЕ НА НЕВИДИМОЙ ГИТАРЕ",

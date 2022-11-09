@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000/api/",
-  //baseURL: 'https://dead-pear-chipmunk-suit.cyclic.app/api/',
+  //baseURL: "http://localhost:5000/api/",
+  baseURL: "https://297349.simplecloud.ru/api",
 });
 
 export const geeksAPI = {

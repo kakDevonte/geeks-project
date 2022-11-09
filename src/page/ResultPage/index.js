@@ -1,4 +1,5 @@
 import React from "react";
+import { clearInterval, setInterval } from "worker-timers";
 import styles from "./ResultPage.module.scss";
 import late from "../../assets/image/late-face.png";
 import lose from "../../assets/image/lose-face.png";
@@ -12,7 +13,7 @@ const state = [
   {
     image: late,
     title: [
-      "КТО-ТО ОТВЕТИЛ БЫЧТРЕЕ",
+      "КТО-ТО ОТВЕТИЛ БЫСТРЕЕ",
       // <br />,
       "ЧЕМ ТЫ. НО ИНТУИЦИЯ",
       // <br />,
@@ -64,7 +65,7 @@ const ResultPage = () => {
       const date2 = new Date(live[questionNumber + 1]?.start);
       setSeconds(secondsInDate(date2));
     } else {
-      setSeconds(secondsInDate(1000));
+      setSeconds(45);
     }
     setIsMount(true);
   }, []);
@@ -125,13 +126,23 @@ const ResultPage = () => {
             </h2>
           ))}
         </div>
+        {status === "win" && (
+          <div className={styles.btnContainer}>
+            {/*<a href="https://ok.ru/group/54070567370772/messages">*/}
+            {/*  <button className={styles.btnVk}>СВЯЗАТЬСЯ В ВК</button>*/}
+            {/*</a>*/}
+            <a href="https://ok.ru/group/54070567370772/messages">
+              <button className={styles.btnOk}>СВЯЗАТЬСЯ В ОК</button>
+            </a>
+          </div>
+        )}
       </div>
       <div className={styles.footer}>
         <img className={styles.logo} src={logo} alt={""} />
         <h1 className={styles.time}>
           ВТОРНИК
           <br />
-          <span>19:00</span>
+          <span>20:30</span>
         </h1>
       </div>
     </div>

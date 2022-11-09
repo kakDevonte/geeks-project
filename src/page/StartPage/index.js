@@ -77,6 +77,7 @@ const StartPage = () => {
   }, []);
 
   const onClickStart = () => {
+    let currLive = null;
     const now = new Date();
     const offset = new Date().getTimezoneOffset();
     const isTimezone = containsTimezone(offset, timezones);
@@ -87,47 +88,54 @@ const StartPage = () => {
       }
     }
 
-    // if (!isTimezone) {
-    //   setPlug("not-timezone");
-    //   navigate("/plug");
-    //   return;
-    // } else if (now.getDay() !== 2) {
+    if (!isTimezone) {
+      setPlug("not-timezone");
+      navigate("/plug");
+      return;
+    }
+    // else if (now.getDay() !== 2) {
     //   setPlug("not-tuesday");
     //   navigate("/plug");
     //   return;
-    // } else
-    if (
-      true
-      // inTimeSpan(
-      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30),
-      //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 31)
-      // )
+    // }
+    else if (
+      inTimeSpan(
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 50),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30)
+      )
     ) {
-      let currLive;
       for (let i = 0; i < lives.length; i++) {
         if (inTimeSpan(new Date(lives[i].start), new Date(lives[i].end))) {
-          currLive = lives[i];
           console.log(lives[i]);
+          currLive = lives[i];
           setLive(lives[i].questions);
           break;
         }
       }
+      if (!currLive) {
+        setPlug("not-tuesday");
+        navigate("/plug");
+      }
+      let questNumber = null;
       for (let i = 0; i < currLive.questions.length; i++) {
         if (
           inTimeSpan(
             new Date(currLive.questions[i].start),
-            new Date(currLive.questions[i].end)
+            new Date(currLive.questions[i + 1]?.start)
           )
         ) {
+          questNumber = i;
           incrementQuestNumber(i);
-          break;
+          navigate("/quest");
+          return;
         }
       }
-      navigate("/quest");
+      setPlug("not-tuesday");
+      navigate("/plug");
       return;
     } else if (
       inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 40),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30),
         new Date(
           now.getFullYear(),
           now.getMonth(),

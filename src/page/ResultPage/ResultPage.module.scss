@@ -48,7 +48,7 @@
 
 .title {
   font-family: FridayCondensedBold;
-  font-size: 1.5em;
+  font-size: 1.4em;
   color: #f6e948;
   margin: 0;
 }
@@ -56,7 +56,7 @@
 .subTitle {
   font-family: FridayDisplayRegular;
   font-weight: normal;
-  font-size: 1.1em;
+  font-size: 1em;
   color: #ffffff;
   margin: 0;
 }
@@ -67,7 +67,35 @@
 
 .subLogo {
   position: absolute;
-  width: 5em;
+  width: 6em;
   margin-left: 10px;
   //z-index:-1;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnVk {
+  font-family: FridayCondensedBold;
+  color: white;
+  padding: 0.5em 2em;
+  border-radius: 50px;
+  background-color: #2787f5;
+  border: none;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.btnOk {
+  border: none;
+  font-family: FridayCondensedBold;
+  color: white;
+  padding: 0.5em 2em;
+  border-radius: 50px;
+  background-color: #ee8208;
+  font-size: 1.3em;
+  cursor: pointer;
 }

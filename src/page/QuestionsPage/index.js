@@ -7,6 +7,7 @@ import children from "../../assets/image/children.png";
 import logo from "../../assets/image/logo-footer.png";
 import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
 import { geeksAPI } from "../../api/geeks-api";
+import { clearInterval, setInterval } from "worker-timers";
 
 const secondsInDate = (time) => {
   let date = new Date(time);
@@ -102,19 +103,21 @@ const QuestionsPage = () => {
 
   React.useEffect(() => {
     if (!isMount) return;
-    if (seconds <= 0 && isAnswered) {
+    if (seconds <= 0) {
       (async () => {
-        const { data } = await geeksAPI.isWin({
-          liveDate: new Date().toLocaleDateString("ru"),
-          number: live[questionNumber].number,
-          id: user.id,
-          timezone: currTimezone,
-        });
-        console.log("РЕЗУЛЬТАТ = ", data);
-        navigate(`/result/${data}`);
+        try {
+          const { data } = await geeksAPI.isWin({
+            liveDate: new Date().toLocaleDateString("ru"),
+            number: live[questionNumber].number,
+            id: user.id,
+            timezone: currTimezone,
+          });
+          console.log("РЕЗУЛЬТАТ = ", data);
+          navigate(`/result/${data}`);
+        } catch (e) {
+          navigate(`/result/lose`);
+        }
       })();
-    } else if (seconds <= 0 && !isAnswered) {
-      navigate(`/result/lose`);
     }
 
     console.log("СЕКУНД ВОПРОСА = ", seconds);
@@ -145,6 +148,7 @@ const QuestionsPage = () => {
           today.toLocaleDateString("ru") + " " + today.toLocaleTimeString("ru"),
         correct: currAns,
         numberAns: index,
+        numberLive: live.number,
       }
     );
     setIsAnswered(true);
