@@ -108,6 +108,7 @@ const ResultPage = () => {
       break;
     }
   }
+
   return (
     <div className={styles.root}>
       <div>
@@ -131,7 +132,10 @@ const ResultPage = () => {
             {/*<a href="https://ok.ru/group/54070567370772/messages">*/}
             {/*  <button className={styles.btnVk}>СВЯЗАТЬСЯ В ВК</button>*/}
             {/*</a>*/}
-            <a href="https://ok.ru/group/54070567370772/messages">
+            <a
+              target="_blank"
+              href="https://ok.ru/group/54070567370772/messages"
+            >
               <button className={styles.btnOk}>СВЯЗАТЬСЯ В ОК</button>
             </a>
           </div>

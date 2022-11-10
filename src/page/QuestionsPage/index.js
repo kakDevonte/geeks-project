@@ -2,13 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionButton from "../../components/QuestionButton";
 import styles from "./QuestionsPage.module.scss";
-import Button from "../../components/Button";
-import children from "../../assets/image/children.png";
 import logo from "../../assets/image/logo-footer.png";
 import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
 import { geeksAPI } from "../../api/geeks-api";
 import { clearInterval, setInterval } from "worker-timers";
-
 const secondsInDate = (time) => {
   let date = new Date(time);
   const diff = date - new Date();
@@ -135,6 +132,7 @@ const QuestionsPage = () => {
     setAnswerText(text);
   };
 
+  console.log(answer);
   const onClickSendAnswer = () => {
     const currAns = index === live[questionNumber].correct;
     const today = new Date();
@@ -156,12 +154,20 @@ const QuestionsPage = () => {
   };
 
   if (!isMount) return <></>;
-
   return (
     <div className={styles.root}>
       <h1 className={styles.title}>КАКОЙ ТАЛАНТ У ЭТОГО РЕБЕНКА?</h1>
       <div className={styles.content}>
-        <img className={styles.children} src={children} alt={""} />
+        <div className={styles.imgContainer}>
+          <img
+            className={styles.children}
+            src={
+              require(`../../assets/image/children/${live[questionNumber].number}.png`)
+                .default
+            }
+            alt={""}
+          />
+        </div>
         {isAnswered ? (
           <div className={styles.answer}>
             <QuestionButton letter={answer} answer={answerText} />
@@ -206,12 +212,14 @@ const QuestionsPage = () => {
           </div>
         )}
         {!isAnswered && (
-          <div className={styles.button}>
-            <Button
-              disabled={answer}
-              title={"ОТПРАВИТЬ ОТВЕТ"}
+          <div className={styles.btnContainer}>
+            <button
+              className={styles.button}
+              disabled={answer === null}
               onClick={onClickSendAnswer}
-            />
+            >
+              ОТПРАВИТЬ ОТВЕТ
+            </button>
           </div>
         )}
       </div>

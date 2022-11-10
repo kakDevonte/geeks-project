@@ -2,8 +2,8 @@
   position: relative;
   display:block;
   //background: transparent;
-  width:200px;
-  height:46px;
+  width:220px;
+  height:56px;
   text-align:center;
   font-size: 0.8em;
   color:#fff;
@@ -13,65 +13,65 @@
 
   &.violet {
     &::before {
-      border-top: 3px solid var(--violet);
-      border-left: 3px solid var(--violet);
-      border-right: 3px solid var(--violet);
+      border-top: 2px solid var(--violet);
+      border-left: 2px solid var(--violet);
+      border-right: 2px solid var(--violet);
     }
   }
 
   &.active.violet {
     &::before {
-      border-top: 3px solid var(--yellow);
-      border-left: 3px solid var(--yellow);
-      border-right: 3px solid var(--yellow);
+      border-top: 2px solid var(--yellow);
+      border-left: 2px solid var(--yellow);
+      border-right: 2px solid var(--yellow);
     }
   }
 
   &.yellow {
     &::before {
-      border-top: 3px solid var(--yellow);
-      border-left: 3px solid var(--yellow);
-      border-right: 3px solid var(--yellow);
+      border-top: 2px solid var(--yellow);
+      border-left: 2px solid var(--yellow);
+      border-right: 2px solid var(--yellow);
     }
   }
 
   &.active.yellow {
     &::before {
-      border-top: 3px solid var(--violet);
-      border-left: 3px solid var(--violet);
-      border-right: 3px solid var(--violet);
+      border-top: 2px solid var(--violet);
+      border-left: 2px solid var(--violet);
+      border-right: 2px solid var(--violet);
     }
   }
 
   &.violet {
     &::after {
-      border-bottom: 3px solid var(--violet);
-      border-left: 3px solid var(--violet);
-      border-right: 3px solid var(--violet);
+      border-bottom: 2px solid var(--violet);
+      border-left: 2px solid var(--violet);
+      border-right: 2px solid var(--violet);
     }
   }
 
   &.active.violet {
     &::after {
-      border-bottom: 3px solid var(--yellow);
-      border-left: 3px solid var(--yellow);
-      border-right: 3px solid var(--yellow);
+      border-bottom: 2px solid var(--yellow);
+      border-left: 2px solid var(--yellow);
+      border-right: 2px solid var(--yellow);
     }
   }
 
   &.yellow {
     &::after {
-      border-bottom: 3px solid var(--yellow);
-      border-left: 3px solid var(--yellow);
-      border-right: 3px solid var(--yellow);
+      border-bottom: 2px solid var(--yellow);
+      border-left: 2px solid var(--yellow);
+      border-right: 2px solid var(--yellow);
     }
   }
 
   &.active.yellow {
     &::after {
-      border-bottom: 3px solid var(--violet);
-      border-left: 3px solid var(--violet);
-      border-right: 3px solid var(--violet);
+      border-bottom: 2px solid var(--violet);
+      border-left: 2px solid var(--violet);
+      border-right: 2px solid var(--violet);
     }
   }
 }
@@ -81,7 +81,7 @@
 
 .text {
   position: absolute;
-  top: 52%;  /* position the top  edge of the element at the middle of the parent */
+  top: 47%;  /* position the top  edge of the element at the middle of the parent */
   left: 53%; /* position the left edge of the element at the middle of the parent */
   width: 90%;
   transform: translate(-50%, -50%);
@@ -95,6 +95,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1em;
+  font-family: FridayCondensedRegular;
+  font-stretch: ultra-condensed;
   translate: -50% -50%;
   top: 50%;
   left: -1%;
@@ -122,7 +125,7 @@
 .line {
   position: absolute;
   display: block;
-  height: 3px;
+  height: 2px;
   width: 100vw;
   border: 0;
   //border-bottom: 3px solid #e60086;
@@ -130,7 +133,7 @@
   translate: 0 50%;
   left: 104.5%;
   bottom: 50%;
-  top: 31%;
+  top: 32.5%;
   z-index: -5;
 
   &.yellow {
@@ -150,9 +153,9 @@
 }
 
 .button:before, .button:after {
-  width:200px;
+  width:220px;
   left: 0;
-  height:20px;
+  height:24px;
   z-index: 1;
 }
 
@@ -170,7 +173,7 @@
 .button:after{
   pointer-events: none;
   position: absolute;
-  top: 24px;
+  top: 28px;
   content: '';
   border-top: none;
 

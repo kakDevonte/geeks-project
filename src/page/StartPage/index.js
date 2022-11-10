@@ -100,8 +100,8 @@ const StartPage = () => {
     // }
     else if (
       inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 50),
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30)
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30)
       )
     ) {
       for (let i = 0; i < lives.length; i++) {
@@ -135,7 +135,7 @@ const StartPage = () => {
       return;
     } else if (
       inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 30),
         new Date(
           now.getFullYear(),
           now.getMonth(),
