@@ -212,9 +212,9 @@ const QuestionsPage = () => {
           </div>
         )}
         {!isAnswered && (
-          <div className={styles.btnContainer}>
+          <div className={`${styles.btnContainer}`}>
             <button
-              className={styles.button}
+              className={`${styles.button} ${isAnswered && styles.active}`}
               disabled={answer === null}
               onClick={onClickSendAnswer}
             >

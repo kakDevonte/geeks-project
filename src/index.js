@@ -7,7 +7,7 @@ import { GeeksContextProvider } from "./context/geeks-context";
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
-screen.orientation.lock("portrait");
+// screen.orientation.lock("portrait");
 
 ReactDOM.render(
   <GeeksContextProvider>
