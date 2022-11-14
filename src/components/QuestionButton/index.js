@@ -14,7 +14,7 @@ const QuestionButton = ({ letter, answer, type, isActive, onClick }) => {
           type === "yellow" ? styles.yellow : styles.violet
         } ${isActive && styles.active}`}
       >
-        {letter}
+        <span>{letter}</span>
       </div>
       <span className={styles.text}>{answer}</span>
       <hr

@@ -39,7 +39,7 @@ const QuestionsPage = () => {
 
       const { data } = await geeksAPI.getQuest(
         now.toLocaleDateString("ru"),
-        live[questionNumber].number,
+        live.questions[questionNumber].number,
         currTimezone
       );
       if (data) {
@@ -47,7 +47,7 @@ const QuestionsPage = () => {
       } else {
         await geeksAPI.createQuest({
           liveDate: now.toLocaleDateString("ru"),
-          number: live[questionNumber].number,
+          number: live.questions[questionNumber].number,
           answers: [],
           timezone: currTimezone,
         });
@@ -61,7 +61,7 @@ const QuestionsPage = () => {
       const now = new Date();
       const { data } = await geeksAPI.isAnswer({
         liveDate: now.toLocaleDateString("ru"),
-        number: live[questionNumber].number,
+        number: live.questions[questionNumber].number,
         id: user.id,
         timezone: currTimezone,
       });
@@ -71,17 +71,17 @@ const QuestionsPage = () => {
         switch (data.index) {
           case 1: {
             letter = "A";
-            text = live[questionNumber].answers[0];
+            text = live.questions[questionNumber].answers[0];
             break;
           }
           case 2: {
             letter = "B";
-            text = live[questionNumber].answers[1];
+            text = live.questions[questionNumber].answers[1];
             break;
           }
           case 3: {
             letter = "C";
-            text = live[questionNumber].answers[2];
+            text = live.questions[questionNumber].answers[2];
             break;
           }
         }
@@ -93,7 +93,7 @@ const QuestionsPage = () => {
 
   React.useEffect(() => {
     if (!live) return;
-    const date2 = new Date(live[questionNumber].end);
+    const date2 = new Date(live.questions[questionNumber].end);
     setSeconds(secondsInDate(date2));
     setIsMount(true);
   }, []);
@@ -105,7 +105,7 @@ const QuestionsPage = () => {
         try {
           const { data } = await geeksAPI.isWin({
             liveDate: new Date().toLocaleDateString("ru"),
-            number: live[questionNumber].number,
+            number: live.questions[questionNumber].number,
             id: user.id,
             timezone: currTimezone,
           });
@@ -119,7 +119,10 @@ const QuestionsPage = () => {
 
     console.log("СЕКУНД ВОПРОСА = ", seconds);
     let myInterval = setInterval(() => {
-      setSeconds(seconds - 1);
+      let currSeconds;
+      const date2 = new Date(live.questions[questionNumber].end);
+      currSeconds = secondsInDate(date2);
+      setSeconds(currSeconds - 1);
     }, 1000);
     return () => {
       clearInterval(myInterval);
@@ -134,11 +137,11 @@ const QuestionsPage = () => {
 
   console.log(answer);
   const onClickSendAnswer = () => {
-    const currAns = index === live[questionNumber].correct;
+    const currAns = index === live.questions[questionNumber].correct;
     const today = new Date();
     sendAnswer(
       today.toLocaleDateString("ru"),
-      live[questionNumber].number,
+      live.questions[questionNumber].number,
       currTimezone,
       {
         ...user,
@@ -149,6 +152,7 @@ const QuestionsPage = () => {
         numberLive: live.number,
       }
     );
+    console.log("numberLive: == ", live);
     setIsAnswered(true);
     setSeconds(seconds - 1);
   };
@@ -162,7 +166,7 @@ const QuestionsPage = () => {
           <img
             className={styles.children}
             src={
-              require(`../../assets/image/children/${live[questionNumber].number}.png`)
+              require(`../../assets/image/children/${live.questions[questionNumber].number}.png`)
                 .default
             }
             alt={""}
@@ -184,29 +188,34 @@ const QuestionsPage = () => {
           <div>
             <QuestionButton
               letter={"А"}
-              answer={live[questionNumber].answers[0]}
+              answer={live.questions[questionNumber].answers[0]}
               // type={"yellow"}
               isActive={answer === "A"}
               onClick={
-                () => onClickQuest("A", 1, live[questionNumber].answers[0]) //data.ethers[0].questions[1].answers[0]
+                () =>
+                  onClickQuest(
+                    "A",
+                    1,
+                    live.questions[questionNumber].answers[0]
+                  ) //data.ethers[0].questions[1].answers[0]
               }
             />
             <QuestionButton
               letter={"B"}
-              answer={live[questionNumber].answers[1]}
+              answer={live.questions[questionNumber].answers[1]}
               // type={"yellow"}
               isActive={answer === "B"}
               onClick={() =>
-                onClickQuest("B", 2, live[questionNumber].answers[1])
+                onClickQuest("B", 2, live.questions[questionNumber].answers[1])
               }
             />
             <QuestionButton
               letter={"C"}
-              answer={live[questionNumber].answers[2]}
+              answer={live.questions[questionNumber].answers[2]}
               // type={"yellow"}
               isActive={answer === "C"}
               onClick={() =>
-                onClickQuest("C", 3, live[questionNumber].answers[2])
+                onClickQuest("C", 3, live.questions[questionNumber].answers[2])
               }
             />
           </div>

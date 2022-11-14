@@ -25,7 +25,7 @@ export const PlugPage = () => {
       if (inTimeSpan(new Date(lives[i].start), new Date(lives[i].end))) {
         console.log(lives[i]);
         setCurrLive(lives[i]);
-        setLive(lives[i].questions);
+        setLive(lives[i]);
         break;
       }
     }

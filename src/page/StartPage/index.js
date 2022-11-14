@@ -35,19 +35,19 @@ const StartPage = () => {
   const { setPlug, setLive, incrementQuestNumber, setTimezone, setUser } =
     useGeeksActions();
 
-  // React.useEffect(() => {
-  //   (async () => {
-  //     let timezone;
-  //     const offset = new Date().getTimezoneOffset();
-  //     for (let item of timezones) {
-  //       if (offset === item.time) {
-  //         timezone = item.time;
-  //         setTimezone(((item.time + 180) / 60) * -1);
-  //       }
-  //     }
-  //     await geeksAPI.incrementOpenApp(((timezone + 180) / 60) * -1);
-  //   })();
-  // }, []);
+  React.useEffect(() => {
+    (async () => {
+      let timezone;
+      const offset = new Date().getTimezoneOffset();
+      for (let item of timezones) {
+        if (offset === item.time) {
+          timezone = item.time;
+          setTimezone(((item.time + 180) / 60) * -1);
+        }
+      }
+      await geeksAPI.incrementOpenApp(((timezone + 180) / 60) * -1);
+    })();
+  }, []);
 
   React.useEffect(() => {
     (async () => {
@@ -100,7 +100,7 @@ const StartPage = () => {
     // }
     else if (
       inTimeSpan(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 40),
+        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 5),
         new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 30)
       )
     ) {
@@ -108,7 +108,7 @@ const StartPage = () => {
         if (inTimeSpan(new Date(lives[i].start), new Date(lives[i].end))) {
           console.log(lives[i]);
           currLive = lives[i];
-          setLive(lives[i].questions);
+          setLive(lives[i]);
           break;
         }
       }

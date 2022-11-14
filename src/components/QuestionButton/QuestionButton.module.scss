@@ -101,7 +101,14 @@
   translate: -50% -50%;
   top: 50%;
   left: -1%;
-  z-index: 2;
+  z-index: 100;
+
+  -webkit-transform: translate3d(0,0,10px);
+  transform: translate3d(0,0,10px);
+
+  span {
+    z-index: 150;
+  }
 
   &.yellow {
     background: var(--yellow);
@@ -156,7 +163,7 @@
   width:220px;
   left: 0;
   height:24px;
-  z-index: 1;
+  z-index: -1;
 }
 
 .violet{ color: #ffffff; }

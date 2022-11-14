@@ -61,8 +61,8 @@ const ResultPage = () => {
 
   React.useEffect(() => {
     if (!live) return;
-    if (live[questionNumber + 1]?.start) {
-      const date2 = new Date(live[questionNumber + 1]?.start);
+    if (live.questions[questionNumber + 1]?.start) {
+      const date2 = new Date(live.questions[questionNumber + 1]?.start);
       setSeconds(secondsInDate(date2));
     } else {
       setSeconds(45);
@@ -87,7 +87,14 @@ const ResultPage = () => {
 
     console.log("сикунды = ", seconds);
     let myInterval = setInterval(() => {
-      setSeconds(seconds - 1);
+      let currSeconds;
+      if (live.questions[questionNumber + 1]?.start) {
+        const date2 = new Date(live.questions[questionNumber + 1]?.start);
+        currSeconds = secondsInDate(date2);
+        setSeconds(currSeconds - 1);
+      } else {
+        setSeconds(seconds - 1);
+      }
     }, 1000);
     return () => {
       clearInterval(myInterval);
