@@ -69,9 +69,16 @@ const QuestionsPage = () => {
     // создание или получение квеста
     (async () => {
       const now = new Date(time.time);
-
+      const today = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        29,
+        now.getHours(),
+        now.getMinutes(),
+        now.getSeconds()
+      );
       const { data } = await geeksAPI.getQuest(
-        now.toLocaleDateString("ru"),
+        today.toLocaleDateString("ru"),
         live.questions[questionNumber].number,
         name
       );
@@ -79,7 +86,7 @@ const QuestionsPage = () => {
         setQuest(data);
       } else {
         await geeksAPI.createQuest({
-          liveDate: now.toLocaleDateString("ru"),
+          liveDate: today.toLocaleDateString("ru"),
           number: live.questions[questionNumber].number,
           answers: [],
           timezone: name,

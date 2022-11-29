@@ -98,7 +98,14 @@ const StartPage = () => {
 
   React.useEffect(() => {
     (async () => {
-      const user = await bridge.send("VKWebAppGetUserInfo");
+      console.log("TNEN AND CATCH!@");
+
+      const user = await bridge
+        .send("VKWebAppGetUserInfo", {})
+        .then((data) => data)
+        .catch((err) => console.log("ОШИБКА = ", err));
+
+      console.log("ЮЗЕР ---", user);
       const { data } = await geeksAPI.getUser(user.id);
       console.log(data);
       window.onerror = (error) => {
