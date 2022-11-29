@@ -6,15 +6,22 @@ import logo from "../../assets/image/logo-footer.png";
 import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
 import { geeksAPI } from "../../api/geeks-api";
 import { clearInterval, setInterval } from "worker-timers";
-const secondsInDate = (time) => {
-  let date = new Date(time);
-  const diff = date - new Date();
+import inTimeSpan from "../../utils/inTimeSpan";
+import { time } from "../../App";
+import calcTime from "../../utils/calcTime";
+import getTimezone from "../../utils/getTimezone";
+import Spinner from "../../components/Spinner";
+
+const secondsInDate = (currTime) => {
+  let date = new Date(currTime);
+  const diff = date - new Date(time.time);
   return diff / 1000;
 };
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  const { questionNumber, live, user, currTimezone } = useGeeksState();
+  const { questionNumber, live, user, currTimezone, name, correctTime } =
+    useGeeksState();
   const { sendAnswer, setQuest } = useGeeksActions();
   const [isAnswered, setIsAnswered] = React.useState(false);
   const [answer, setAnswer] = React.useState(null);
@@ -22,9 +29,8 @@ const QuestionsPage = () => {
   const [answerText, setAnswerText] = React.useState(null);
   const [seconds, setSeconds] = React.useState(0);
   const [isMount, setIsMount] = React.useState(false);
-
-  console.log("QUESTION NUMBER === ", questionNumber);
-  console.log("USER === ", user);
+  const [isLate, setIsLate] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     if (!live) {
@@ -33,14 +39,41 @@ const QuestionsPage = () => {
   }, []);
 
   React.useEffect(() => {
-    if (!live) return;
     (async () => {
-      const now = new Date();
+      const { data } = await geeksAPI.getTime();
+      const date = new Date(data.slice(0, -1));
+      time.setTime(calcTime(date.getTime(), getTimezone()).getTime());
+    })();
+  }, []);
+
+  React.useEffect(() => {
+    if (
+      inTimeSpan(
+        new Date(live.questions[questionNumber].start),
+        new Date(live.questions[questionNumber].end)
+      )
+    ) {
+      const date = new Date(live.questions[questionNumber].end);
+      setSeconds(secondsInDate(date));
+    } else {
+      const date = new Date(live.questions[questionNumber + 1]?.start);
+      setSeconds(secondsInDate(date));
+      setIsLate(true);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    let currSeconds;
+    let currIsLate = false;
+    let currIsAnswered = false;
+    // создание или получение квеста
+    (async () => {
+      const now = new Date(time.time);
 
       const { data } = await geeksAPI.getQuest(
         now.toLocaleDateString("ru"),
         live.questions[questionNumber].number,
-        currTimezone
+        name
       );
       if (data) {
         setQuest(data);
@@ -49,23 +82,23 @@ const QuestionsPage = () => {
           liveDate: now.toLocaleDateString("ru"),
           number: live.questions[questionNumber].number,
           answers: [],
-          timezone: currTimezone,
+          timezone: name,
+          isSentWinners: false,
         });
       }
     })();
-  }, []);
 
-  React.useEffect(() => {
-    if (!live) return;
+    // ответил или нет
     (async () => {
-      const now = new Date();
+      const now = new Date(time.time);
       const { data } = await geeksAPI.isAnswer({
         liveDate: now.toLocaleDateString("ru"),
         number: live.questions[questionNumber].number,
         id: user.id,
-        timezone: currTimezone,
+        timezone: name,
       });
       if (data) {
+        currIsAnswered = data.isAnswer;
         setIsAnswered(data.isAnswer);
         let letter, text;
         switch (data.index) {
@@ -88,28 +121,64 @@ const QuestionsPage = () => {
         setAnswer(letter);
         setAnswerText(text);
       }
-    })();
-  }, []);
 
-  React.useEffect(() => {
-    if (!live) return;
-    const date2 = new Date(live.questions[questionNumber].end);
-    setSeconds(secondsInDate(date2));
-    setIsMount(true);
+      if (
+        !inTimeSpan(
+          new Date(live.questions[questionNumber].start),
+          new Date(live.questions[questionNumber].end)
+        ) &&
+        currIsAnswered
+      ) {
+        const { data } = await geeksAPI.isWin({
+          liveDate: new Date(time.time).toLocaleDateString("ru"),
+          number: live.questions[questionNumber].number,
+          id: user.id,
+          timezone: name,
+        });
+        navigate(`/result/${data}`);
+        return;
+      }
+
+      setIsMount(true);
+      setIsLoading(false);
+    })();
+
+    // получение секунд до конца вопроса
   }, []);
 
   React.useEffect(() => {
     if (!isMount) return;
+
     if (seconds <= 0) {
+      const today = new Date(time.time);
+
+      if (!isAnswered) {
+        sendAnswer(
+          today.toLocaleDateString("ru"),
+          live.questions[questionNumber].number,
+          currTimezone,
+          {
+            ...user,
+            timeAnswer:
+              today.toLocaleDateString("ru") +
+              " " +
+              today.toLocaleTimeString("ru"),
+            correct: false,
+            numberAns: index,
+            numberLive: live.number,
+            isLate,
+          }
+        );
+      }
+
       (async () => {
         try {
           const { data } = await geeksAPI.isWin({
-            liveDate: new Date().toLocaleDateString("ru"),
+            liveDate: new Date(time.time).toLocaleDateString("ru"),
             number: live.questions[questionNumber].number,
             id: user.id,
-            timezone: currTimezone,
+            timezone: name,
           });
-          console.log("РЕЗУЛЬТАТ = ", data);
           navigate(`/result/${data}`);
         } catch (e) {
           navigate(`/result/lose`);
@@ -117,17 +186,37 @@ const QuestionsPage = () => {
       })();
     }
 
-    console.log("СЕКУНД ВОПРОСА = ", seconds);
     let myInterval = setInterval(() => {
       let currSeconds;
-      const date2 = new Date(live.questions[questionNumber].end);
-      currSeconds = secondsInDate(date2);
+      if (
+        isNaN(seconds) ||
+        seconds === undefined ||
+        seconds < -100 ||
+        seconds > 3000
+      )
+        navigate("/");
+
+      if (isLate) {
+        if (live.questions[questionNumber + 1]?.start) {
+          const date = new Date(live.questions[questionNumber + 1]?.start);
+          currSeconds = secondsInDate(date);
+        } else {
+          const date = new Date(live.questions[questionNumber].end);
+          currSeconds = secondsInDate(date);
+        }
+      } else {
+        const date = new Date(live.questions[questionNumber].end);
+        currSeconds = secondsInDate(date);
+      }
+      if (isLate && isAnswered) {
+        currSeconds = 0;
+      }
       setSeconds(currSeconds - 1);
     }, 1000);
     return () => {
       clearInterval(myInterval);
     };
-  });
+  }); // таймер
 
   const onClickQuest = (letter, index, text) => {
     setAnswer(letter);
@@ -135,29 +224,45 @@ const QuestionsPage = () => {
     setAnswerText(text);
   };
 
-  console.log(answer);
   const onClickSendAnswer = () => {
     const currAns = index === live.questions[questionNumber].correct;
-    const today = new Date();
+    const today = new Date(time.time);
+    const now = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      today.getHours() + correctTime,
+      today.getMinutes(),
+      today.getSeconds()
+    );
     sendAnswer(
-      today.toLocaleDateString("ru"),
+      now.toLocaleDateString("ru"),
       live.questions[questionNumber].number,
-      currTimezone,
+      name,
       {
         ...user,
         timeAnswer:
-          today.toLocaleDateString("ru") + " " + today.toLocaleTimeString("ru"),
+          now.toLocaleDateString("ru") + " " + now.toLocaleTimeString("ru"),
         correct: currAns,
         numberAns: index,
         numberLive: live.number,
+        isLate,
       }
     );
-    console.log("numberLive: == ", live);
     setIsAnswered(true);
     setSeconds(seconds - 1);
   };
 
+  if (isLoading) {
+    return (
+      <div className={styles.root}>
+        <Spinner />
+      </div>
+    );
+  }
+
   if (!isMount) return <></>;
+
   return (
     <div className={styles.root}>
       <h1 className={styles.title}>КАКОЙ ТАЛАНТ У ЭТОГО РЕБЕНКА?</h1>

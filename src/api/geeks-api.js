@@ -1,8 +1,11 @@
 import axios from "axios";
 
 const instance = axios.create({
-  //baseURL: "http://localhost:5000/api/",
-  baseURL: "https://297349.simplecloud.ru/api",
+  //baseURL: "http://localhost:3000/api/",
+  //baseURL: "https://297349.simplecloud.ru/api",
+  //baseURL: "https://300799.simplecloud.ru/api/",
+  //baseURL: "https://server.bulochkin.site/api/",
+  baseURL: "https://95-163-237-191.cloudvps.regruhosting.ru/api/",
 });
 
 export const geeksAPI = {
@@ -31,5 +34,8 @@ export const geeksAPI = {
   },
   isWin(data) {
     return instance.post(`quest/is-win`, data);
+  },
+  getTime() {
+    return instance.get(`quest/time`);
   },
 };

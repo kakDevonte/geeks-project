@@ -8,6 +8,10 @@ import logo from "../../assets/image/logo-footer.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGeeksActions, useGeeksState } from "../../context/geeks-context";
 import data from "../../utils/data.json";
+import { time } from "../../App";
+import { geeksAPI } from "../../api/geeks-api";
+import calcTime from "../../utils/calcTime";
+import getTimezone from "../../utils/getTimezone";
 
 const state = [
   {
@@ -44,9 +48,9 @@ const state = [
   },
 ];
 
-const secondsInDate = (time) => {
-  let date = new Date(time);
-  const diff = date - new Date();
+const secondsInDate = (currTime) => {
+  let date = new Date(currTime);
+  const diff = date - new Date(time.time);
   return diff / 1000;
 };
 
@@ -58,6 +62,14 @@ const ResultPage = () => {
   const { status } = useParams();
   const navigate = useNavigate();
   let index;
+
+  React.useEffect(() => {
+    (async () => {
+      const { data } = await geeksAPI.getTime();
+      const date = new Date(data.slice(0, -1));
+      time.setTime(calcTime(date.getTime(), getTimezone()).getTime());
+    })();
+  }, []);
 
   React.useEffect(() => {
     if (!live) return;
@@ -72,7 +84,6 @@ const ResultPage = () => {
 
   React.useEffect(() => {
     if (!isMount) return;
-    console.log(questionNumber + 1 + "  " + data.ethers[0].questions.length);
 
     if (seconds <= 0) {
       if (questionNumber + 1 >= data.ethers[0].questions.length) {
@@ -85,9 +96,17 @@ const ResultPage = () => {
       // navigate("/quest");
     }
 
-    console.log("сикунды = ", seconds);
     let myInterval = setInterval(() => {
       let currSeconds;
+
+      if (
+        isNaN(seconds) ||
+        seconds === undefined ||
+        seconds < -100 ||
+        seconds > 3000
+      )
+        navigate("/");
+
       if (live.questions[questionNumber + 1]?.start) {
         const date2 = new Date(live.questions[questionNumber + 1]?.start);
         currSeconds = secondsInDate(date2);

@@ -6,8 +6,10 @@ const SET_USER = "SET_USER";
 const SET_LIVE = "SET_LIVE";
 const SET_QUEST = "SET_QUEST";
 const SET_TIMEZONE = "SET_TIMEZONE";
+const SET_NAME = "SET_NAME";
 const SET_IS_WIN = "SET_IS_WIN";
 const SEND_ANSWER = "SEND_ANSWER";
+const SET_TIME = "SET_TIME";
 const INCREMENT_QUEST_NUMBER = "INCREMENT_QUEST_NUMBER";
 
 const initialState = {
@@ -19,6 +21,8 @@ const initialState = {
   currLive: null,
   quest: null,
   currTimezone: null,
+  name: null,
+  correctTime: null,
 };
 const GeeksContext = React.createContext();
 
@@ -53,6 +57,18 @@ export const GeeksContextProvider = (props) => {
     setTimezone: (timezone) => {
       dispatch({
         type: SET_TIMEZONE,
+        payload: timezone,
+      });
+    },
+    setName: (timezone) => {
+      dispatch({
+        type: SET_NAME,
+        payload: timezone,
+      });
+    },
+    setTime: (timezone) => {
+      dispatch({
+        type: SET_TIME,
         payload: timezone,
       });
     },
@@ -94,6 +110,12 @@ const reducer = (state, action) => {
     }
     case SET_TIMEZONE: {
       return { ...state, currTimezone: action.payload };
+    }
+    case SET_NAME: {
+      return { ...state, name: action.payload };
+    }
+    case SET_TIME: {
+      return { ...state, correctTime: action.payload };
     }
     case INCREMENT_QUEST_NUMBER: {
       return { ...state, questionNumber: action.payload };

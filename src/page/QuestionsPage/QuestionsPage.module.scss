@@ -50,20 +50,21 @@
 .time {
   color: #f6e948;
   rotate: -14deg;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-family: FridayCondensedBold;
   font-style: italic;
   margin: 0;
   span {
-    font-size: 1.5em;
+    font-size: 1.4em;
   }
 }
 
 .logo {
-  width: 6em;
+  width: 5em;
 }
 
 .imgContainer {
+  align-self: center;
   border-radius: 50%;
   border: 2px solid #f6e948;
   overflow: hidden;
@@ -132,8 +133,8 @@
 .button {
   background: var(--violet);
   border: none;
-  padding: 0.9em 2em;
-  font-size: 1em;
+  padding: 0.6em 1.6em;
+  font-size: 1.3em;
   font-family: FridayCondensedBold;
   color: #ffffff;
   border-radius: 25px;
