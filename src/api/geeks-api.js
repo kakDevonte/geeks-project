@@ -20,14 +20,14 @@ export const geeksAPI = {
   },
   getQuest(liveDate, number, timezone) {
     return instance.get(
-      `/quest?liveDate=${liveDate}&number=${number}&timezone=${timezone}`
+      `/quest?liveNumber=${liveDate}&number=${number}&timezone=${timezone}`
     );
   },
   createQuest(data) {
     return instance.post(`quest/`, data);
   },
-  sendAnswer(liveDate, number, timezone, answer) {
-    return instance.put(`quest/`, { liveDate, number, timezone, answer });
+  sendAnswer(liveNumber, number, timezone, answer) {
+    return instance.put(`quest/`, { liveNumber, number, timezone, answer });
   },
   isAnswer(data) {
     return instance.post(`quest/is-answer`, data);

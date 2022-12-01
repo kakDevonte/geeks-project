@@ -98,7 +98,7 @@ const ResultPage = () => {
 
     let myInterval = setInterval(() => {
       let currSeconds;
-
+      console.log("До начала вопроса = ", seconds);
       if (
         isNaN(seconds) ||
         seconds === undefined ||

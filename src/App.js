@@ -1,5 +1,4 @@
 import React from "react";
-import bridge from "@vkontakte/vk-bridge";
 import logo from "./assets/image/PT logo.png";
 import "./App.scss";
 import { PlugPage } from "./page/PlugPage";

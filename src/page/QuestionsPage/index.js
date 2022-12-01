@@ -68,17 +68,8 @@ const QuestionsPage = () => {
     let currIsAnswered = false;
     // создание или получение квеста
     (async () => {
-      const now = new Date(time.time);
-      const today = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        29,
-        now.getHours(),
-        now.getMinutes(),
-        now.getSeconds()
-      );
       const { data } = await geeksAPI.getQuest(
-        today.toLocaleDateString("ru"),
+        live.number,
         live.questions[questionNumber].number,
         name
       );
@@ -86,9 +77,10 @@ const QuestionsPage = () => {
         setQuest(data);
       } else {
         await geeksAPI.createQuest({
-          liveDate: today.toLocaleDateString("ru"),
+          liveNumber: live.number,
           number: live.questions[questionNumber].number,
           answers: [],
+          winners: [],
           timezone: name,
           isSentWinners: false,
         });
@@ -99,7 +91,7 @@ const QuestionsPage = () => {
     (async () => {
       const now = new Date(time.time);
       const { data } = await geeksAPI.isAnswer({
-        liveDate: now.toLocaleDateString("ru"),
+        liveNumber: live.number,
         number: live.questions[questionNumber].number,
         id: user.id,
         timezone: name,
@@ -137,7 +129,7 @@ const QuestionsPage = () => {
         currIsAnswered
       ) {
         const { data } = await geeksAPI.isWin({
-          liveDate: new Date(time.time).toLocaleDateString("ru"),
+          liveNumber: live.number,
           number: live.questions[questionNumber].number,
           id: user.id,
           timezone: name,
@@ -160,28 +152,23 @@ const QuestionsPage = () => {
       const today = new Date(time.time);
 
       if (!isAnswered) {
-        sendAnswer(
-          today.toLocaleDateString("ru"),
-          live.questions[questionNumber].number,
-          currTimezone,
-          {
-            ...user,
-            timeAnswer:
-              today.toLocaleDateString("ru") +
-              " " +
-              today.toLocaleTimeString("ru"),
-            correct: false,
-            numberAns: index,
-            numberLive: live.number,
-            isLate,
-          }
-        );
+        sendAnswer(live.number, live.questions[questionNumber].number, name, {
+          ...user,
+          timeAnswer:
+            today.toLocaleDateString("ru") +
+            " " +
+            today.toLocaleTimeString("ru"),
+          correct: false,
+          numberAns: index,
+          numberLive: live.number,
+          isLate,
+        });
       }
 
       (async () => {
         try {
           const { data } = await geeksAPI.isWin({
-            liveDate: new Date(time.time).toLocaleDateString("ru"),
+            liveNumber: live.number,
             number: live.questions[questionNumber].number,
             id: user.id,
             timezone: name,
@@ -195,6 +182,7 @@ const QuestionsPage = () => {
 
     let myInterval = setInterval(() => {
       let currSeconds;
+      console.log("До конца вопроса = ", seconds);
       if (
         isNaN(seconds) ||
         seconds === undefined ||
@@ -242,20 +230,15 @@ const QuestionsPage = () => {
       today.getMinutes(),
       today.getSeconds()
     );
-    sendAnswer(
-      now.toLocaleDateString("ru"),
-      live.questions[questionNumber].number,
-      name,
-      {
-        ...user,
-        timeAnswer:
-          now.toLocaleDateString("ru") + " " + now.toLocaleTimeString("ru"),
-        correct: currAns,
-        numberAns: index,
-        numberLive: live.number,
-        isLate,
-      }
-    );
+    sendAnswer(live.number, live.questions[questionNumber].number, name, {
+      ...user,
+      timeAnswer:
+        now.toLocaleDateString("ru") + " " + now.toLocaleTimeString("ru"),
+      correct: currAns,
+      numberAns: index,
+      numberLive: live.number,
+      isLate,
+    });
     setIsAnswered(true);
     setSeconds(seconds - 1);
   };

@@ -78,8 +78,8 @@ export const GeeksContextProvider = (props) => {
         payload: number,
       });
     },
-    sendAnswer: async (liveDate, number, timezone, answer) => {
-      await geeksAPI.sendAnswer(liveDate, number, timezone, answer);
+    sendAnswer: async (liveNumber, number, timezone, answer) => {
+      await geeksAPI.sendAnswer(liveNumber, number, timezone, answer);
     },
     isWin: (user) => {},
   };
