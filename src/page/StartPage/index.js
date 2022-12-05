@@ -165,11 +165,11 @@ const StartPage = () => {
     }
     let live = lives.find((item) => item.timezone === currTimezone);
     const endDate = new Date(live.live[0].end);
-    if (now.getDay() !== 2) {
-      setPlug("not-tuesday");
-      navigate("/plug");
-      return;
-    }
+    // if (now.getDay() !== 2) {
+    //   setPlug("not-tuesday");
+    //   navigate("/plug");
+    //   return;
+    // }
     if (
       //true
       inTimeSpan(new Date(live.live[0].start), new Date(live.live[0].end))
