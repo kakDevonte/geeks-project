@@ -17,33 +17,6 @@ const time = new Test(0);
 const App = () => {
   const [isMount, setIsMount] = React.useState(false);
 
-  const getBrowser = () => {
-    let parsed = qs.parse(window.location.href);
-    if (parsed.odr_enabled) {
-      return (
-        <MemoryRouter initialEntries={["/"]}>
-          <Routes>
-            <Route path={"/"} element={<StartPage />} />
-            <Route path={"/plug"} element={<PlugPage />} />
-            <Route path={"/result/:status"} element={<ResultPage />} />
-            <Route path={"/quest"} element={<QuestionsPage />} />
-          </Routes>
-        </MemoryRouter>
-      );
-    } else {
-      return (
-        <BrowserRouter>
-          <Routes>
-            <Route path={"/"} element={<StartPage />} />
-            <Route path={"/plug"} element={<PlugPage />} />
-            <Route path={"/result/:status"} element={<ResultPage />} />
-            <Route path={"/quest"} element={<QuestionsPage />} />
-          </Routes>
-        </BrowserRouter>
-      );
-    }
-  };
-
   React.useEffect(() => {
     (async () => {
       const { data } = await geeksAPI.getTime();
@@ -56,7 +29,14 @@ const App = () => {
   return (
     <div className="root">
       <img className="logo" src={logo} alt={""} />
-      {isMount && getBrowser()}
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<StartPage />} />
+          <Route path={"/plug"} element={<PlugPage />} />
+          <Route path={"/result/:status"} element={<ResultPage />} />
+          <Route path={"/quest"} element={<QuestionsPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

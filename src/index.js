@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
 //import bridge from "@vkontakte/vk-bridge-mock";
-//import { FAPI } from "./libs/Fapi";
 import App from "./App";
 import "./index.scss";
 import { GeeksContextProvider } from "./context/geeks-context";
@@ -18,6 +17,6 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-if (process.env.NODE_ENV === "development") {
-  import("./eruda").then(({ default: eruda }) => {}); //runtime download
-}
+//if (process.env.NODE_ENV === "development") {
+import("./eruda").then(({ default: eruda }) => {}); //runtime download
+//}

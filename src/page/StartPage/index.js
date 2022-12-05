@@ -102,7 +102,10 @@ const StartPage = () => {
         .send("VKWebAppGetUserInfo", {})
         .then((data) => data)
         .catch((err) => console.log("ОШИБКА = ", err));
+
+      console.log("Юзер из вк = ", user);
       const { data } = await geeksAPI.getUser(user.id);
+      console.log("Юзер из бека = ", data);
       if (data) {
         setUser(data);
       } else {
